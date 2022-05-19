@@ -1,4 +1,5 @@
 config.php
+
 # System / Log files
 *.DS_Store
 *.log
