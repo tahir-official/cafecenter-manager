@@ -1,3 +1,4 @@
+config.php
 # System / Log files
 *.DS_Store
 *.log
@@ -69,4 +70,3 @@ TODO
 test.html
 ad.js
 /.cache/
-config.php
