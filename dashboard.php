@@ -2,6 +2,7 @@
 <?php
    include_once('include/header.php');
    print_r($_SESSION);
+   print_r($_COOKIE);
 ?>
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">

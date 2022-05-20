@@ -48,13 +48,13 @@
       <div id="alert" ></div>
       <form method="post" id="loginFrom">
         <div class="input-group mb-3">
-          <input type="text" name="username" id="username" class="form-control" placeholder="Username (Phone or Email)" >
+          <input type="text" name="username" id="username" class="form-control" placeholder="Username (Phone or Email)" value="<?php if(isset($_COOKIE["username"])) { echo $_COOKIE["username"]; } ?>">
           <div class="input-group-append input-group-text">
              <span class="fas fa-envelope"></span>
            </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+          <input type="password" name="password" id="password" class="form-control" placeholder="Password" value="<?php if(isset($_COOKIE["password"])) { echo $_COOKIE["password"]; } ?>">
           <div class="input-group-append input-group-text toggle-password">
              <span class="fas fa-lock"></span>
           </div>

@@ -39,6 +39,16 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'login'){
 			  }
 				$output['url']=$site_url.'dashboard.php';
 				
+				if(!empty($_POST["remember"])) {
+					setcookie ("username",$_POST["username"],time()+ 3600);
+					setcookie ("password",$_POST["password"],time()+ 3600);
+					
+				} else {
+					setcookie("username","");
+					setcookie("password","");
+					
+				}
+				
 				
 			}else{
 				//error message

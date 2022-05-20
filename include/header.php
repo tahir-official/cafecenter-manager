@@ -5,9 +5,9 @@
    $portal_detail=$get_manager_portal_detail->data;
    if(ENV=='prod'){
     $site_url=$portal_detail->MANAGER_PORTAL_URL;
- }else{
+   }else{
     $site_url='https://localhost/cafecenter-manager/';
- }
+   }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -161,6 +161,11 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  href="<?=$site_url?>logout.php" >
+          <i class="fas fa-power-off"></i>
         </a>
       </li>
       <!-- <li class="nav-item">
@@ -729,7 +734,21 @@
                   <p>Starter Page</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="<?=$site_url?>logout.php" class="nav-link">
+                  <i class="far fas fa-power-off"></i>
+                  <p>Logout</p>
+                </a>
+              </li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a href="<?=$site_url?>logout.php" class="nav-link">
+              <i class="nav-icon far fas fa-power-off"></i>
+              <p>
+              Logout
+              </p>
+            </a>
           </li>
           <!-- <li class="nav-item">
             <a href="#" class="nav-link">
