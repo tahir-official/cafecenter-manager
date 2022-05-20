@@ -16,7 +16,7 @@ $("#loginFrom").submit(function (e) {
     data: formData,
     dataType: "JSON",
     beforeSend: function () {
-      $(".btnLogin").html('<i class="fa fa-spinner"></i> Processing...');
+      $(".btnLogin").html('Login <i class="fa fa-spinner"></i>');
       $(".btnLogin").prop("disabled", true);
       $("#alert").hide();
     },
