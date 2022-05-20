@@ -1,14 +1,18 @@
 
 <?php
    include_once('include/header.php');
-   print_r($_SESSION);
-   print_r($_COOKIE);
 ?>
+
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+    
     <div class="content-header">
       <div class="container-fluid">
+        <?php
+        //print_r($manager_data);
+        if (isset($_SESSION['message'])){ echo $_SESSION['message'];  unset($_SESSION['message']);}
+        ?>
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">Dashboard</h1>
@@ -93,7 +97,12 @@
     </section>
    
   </div>
-  
+
+  <div class="video">Video Player</div>
+  <div class="paywall">PAYWALL</div>
+
+  <hr>
+  <div class="form">Form</div>
   
 <?php
    include_once('include/footer.php');

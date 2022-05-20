@@ -19,13 +19,25 @@ class Functions
   }
 
   function get_manager_portal_detail(){
-    $url=SSOAPI.'get_manager_portal_detail';
-    $data=array(
-        'api_key' => API_KEY
-    );
-    $method='POST';
-    $response=$this->curl_call($url,$data,$method);
-    return $result = json_decode($response);
+        $url=SSOAPI.'get_manager_portal_detail';
+        $data=array(
+            'api_key' => API_KEY
+        );
+        $method='POST';
+        $response=$this->curl_call($url,$data,$method);
+        return $result = json_decode($response);
+    
+  }
+
+  function manager_detail($manager_id){
+        $url=SSOAPI.'get_user_detail';
+        $data=array(
+            'user_id' => $manager_id,
+            'api_key' => API_KEY
+        );
+        $method='POST';
+        $response=$this->curl_call($url,$data,$method);
+        return $result = json_decode($response);
     
   }
 

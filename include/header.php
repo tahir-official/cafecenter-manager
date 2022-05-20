@@ -3,12 +3,13 @@
    $commonFunction= new functions();
    $get_manager_portal_detail=$commonFunction->get_manager_portal_detail();
    $portal_detail=$get_manager_portal_detail->data;
+   $manager_detail=$commonFunction->manager_detail($_SESSION['manager_id']);
+   $manager_data=$manager_detail->data;
    if(ENV=='prod'){
     $site_url=$portal_detail->MANAGER_PORTAL_URL;
    }else{
     $site_url='https://localhost/cafecenter-manager/';
    }
-
    if(!isset($_SESSION['is_manager_logged_in'])){ $commonFunction->redirect('index.php'); }
 ?>
 <!DOCTYPE html>
@@ -45,6 +46,7 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  <link rel="icon" type="image/x-icon" href="<?=$portal_detail->SITE_ICON?>">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -66,7 +68,7 @@
         <a href="<?=$site_url?>" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?=$site_url?>" class="nav-link">Profile</a>
+        <a href="<?=$site_url?>profile.php" class="nav-link">Profile</a>
       </li>
       
     </ul>
@@ -192,10 +194,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="<?=$manager_data->profile?>" class="img-circle elevation-2" alt="<?=$manager_data->fname.' '.$manager_data->lname?>">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="<?=$site_url?>profile.php" class="d-block"><?=$manager_data->fname.' '.$manager_data->lname?></a>
         </div>
       </div>
 
