@@ -1,4 +1,4 @@
-config.php
+include/config.php
 
 # System / Log files
 *.DS_Store
