@@ -3,6 +3,7 @@
    $commonFunction= new functions();
    $get_manager_portal_detail=$commonFunction->get_manager_portal_detail();
    $portal_detail=$get_manager_portal_detail->data;
+   
    $manager_detail=$commonFunction->manager_detail($_SESSION['manager_id']);
    $manager_data=$manager_detail->data;
    if(ENV=='prod'){
@@ -47,8 +48,43 @@
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
   <link rel="icon" type="image/x-icon" href="<?=$portal_detail->SITE_ICON?>">
+  <!-- jQuery -->
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <script>
+   <?php
+   if($get_manager_portal_detail->status==0){
+    $portal_error_html='<img src="'.$portal_detail->ERROR_500.'" />'; 
+    ?>
+     $(document).ready(function() {
+        $(".wrapper").html('<?=$portal_error_html?>'); 
+        $(".wrapper").css('text-align','center');
+     });
+   <?php
+   }else if($manager_detail->status==0){
+    $manager_error_html='<img src="'.$portal_detail->ERROR_403.'" />'; 
+    ?>
+     $(document).ready(function() {
+        $(".wrapper").html('<?=$manager_error_html?>'); 
+        $(".wrapper").css('text-align','center');
+     });
+   <?php
+   }else if($manager_data->subscription_status==0){
+    $manager_error_html='<img src="'.$portal_detail->ERROR_403.'" />'; 
+     ?>
+     $(document).ready(function() {
+        $(".wrapper").html('<?=$manager_error_html?>'); 
+        $(".wrapper").css('text-align','center');
+     });
+    <?php
+   }
+   ?>
+  </script>
+  
+  
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
+
 <div class="wrapper">
 
 
