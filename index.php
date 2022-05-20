@@ -48,7 +48,7 @@
       <div id="alert" ></div>
       <form method="post" id="loginFrom">
         <div class="input-group mb-3">
-          <input type="text" name="username" id="username" class="form-control" placeholder="Phone or Email" >
+          <input type="text" name="username" id="username" class="form-control" placeholder="Username (Phone or Email)" >
           <div class="input-group-append input-group-text">
              <span class="fas fa-envelope"></span>
            </div>
@@ -118,7 +118,6 @@
 <script src="dist/js/adminlte.min.js"></script>
 <script type="text/javascript">
       let baseUrl = '<?=$site_url;?>';
-      alert(baseUrl);
 </script>
 <script src="dist/js/custom.js"></script>
 

@@ -1,6 +1,7 @@
 
 <?php
    include_once('include/header.php');
+   print_r($_SESSION);
 ?>
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
