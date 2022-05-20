@@ -12,12 +12,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'login'){
 			$output['status'] = 0;
 		} else{
 
+			$username=$_POST['username'];
+			$password=$_POST['password'];
       $url=SSOAPI.'user_login';
       $data=array(
           'api_key' => API_KEY,
           'portal' => 'manager',
-          'username' => $_POST['username'],
-          'password' => $_POST['password']
+          'username' => $username,
+          'password' => $password
       );
       $method='POST';
       $response=$commonFunction->curl_call($url,$data,$method);
@@ -40,13 +42,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'login'){
 				$output['url']=$site_url.'dashboard.php';
 				
 				if(!empty($_POST["remember"])) {
-					setcookie ("username",$_POST["username"],time()+ 3600);
-					setcookie ("password",$_POST["password"],time()+ 3600);
-					
+					setcookie ("loginId", $username, time()+ (10 * 365 * 24 * 60 * 60));  
+					setcookie ("loginPass",	$password,	time()+ (10 * 365 * 24 * 60 * 60));
 				} else {
-					setcookie("username","");
-					setcookie("password","");
-					
+					setcookie ("loginId",""); 
+					setcookie ("loginPass","");
 				}
 				
 				

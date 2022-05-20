@@ -8,6 +8,8 @@
    }else{
     $site_url='https://localhost/cafecenter-manager/';
    }
+
+   if(!isset($_SESSION['is_manager_logged_in'])){ $commonFunction->redirect('index.php'); }
 ?>
 <!DOCTYPE html>
 <html lang="en">

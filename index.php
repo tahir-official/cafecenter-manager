@@ -8,7 +8,7 @@
    }else{
       $site_url='https://localhost/cafecenter-manager/';
    }
-   //if(isset($_SESSION['is_store_logged_in'])){ $commonFunction->redirect('dashboard.php'); }
+   if(isset($_SESSION['is_manager_logged_in'])){ $commonFunction->redirect('dashboard.php'); }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,13 +48,13 @@
       <div id="alert" ></div>
       <form method="post" id="loginFrom">
         <div class="input-group mb-3">
-          <input type="text" name="username" id="username" class="form-control" placeholder="Username (Phone or Email)" value="<?php if(isset($_COOKIE["username"])) { echo $_COOKIE["username"]; } ?>">
+          <input type="text" name="username" id="username" class="form-control" placeholder="Username (Phone or Email)" value="<?php if(isset($_COOKIE["loginId"])) { echo $_COOKIE["loginId"]; } ?>">
           <div class="input-group-append input-group-text">
              <span class="fas fa-envelope"></span>
            </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="password" id="password" class="form-control" placeholder="Password" value="<?php if(isset($_COOKIE["password"])) { echo $_COOKIE["password"]; } ?>">
+          <input type="password" name="password" id="password" class="form-control" placeholder="Password" value="<?php if(isset($_COOKIE["loginPass"])) { echo $_COOKIE["loginPass"]; } ?>">
           <div class="input-group-append input-group-text toggle-password">
              <span class="fas fa-lock"></span>
           </div>
@@ -63,7 +63,7 @@
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" id="remember" name="remember">
+              <input type="checkbox" id="remember" name="remember" <?php if(isset($_COOKIE["loginId"])) { ?> checked <?php } ?>>
               <label for="remember">
                 Remember Me
               </label>
