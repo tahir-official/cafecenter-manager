@@ -3,7 +3,11 @@
    $commonFunction= new functions();
    $get_manager_portal_detail=$commonFunction->get_manager_portal_detail();
    $portal_detail=$get_manager_portal_detail->data;
-   
+   if(ENV=='prod'){
+      $site_url=$portal_detail->MANAGER_PORTAL_URL;
+   }else{
+      $site_url='https://localhost/cafecenter-manager/';
+   }
    //if(isset($_SESSION['is_store_logged_in'])){ $commonFunction->redirect('dashboard.php'); }
 ?>
 <!DOCTYPE html>
@@ -35,34 +39,31 @@
   if($get_manager_portal_detail->status==1){
     ?>
       <div class="login-logo">
-      <a href="<?=$portal_detail->MANAGER_PORTAL_URL?>"><img style="width: 200px;" src="<?=$portal_detail->LOGO?>" ></a>
+      <a href="<?=$site_url?>"><img style="width: 200px;" src="<?=$portal_detail->LOGO?>" ></a>
      </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
-
-      <form action="index3.html" method="post">
+      <div id="alert" ></div>
+      <form method="post" id="loginFrom">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
+          <input type="text" name="username" id="username" class="form-control" placeholder="Phone or Email" >
+          <div class="input-group-append input-group-text">
+             <span class="fas fa-envelope"></span>
+           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
+          <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+          <div class="input-group-append input-group-text toggle-password">
+             <span class="fas fa-lock"></span>
           </div>
+           
         </div>
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" id="remember">
+              <input type="checkbox" id="remember" name="remember">
               <label for="remember">
                 Remember Me
               </label>
@@ -70,7 +71,7 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-block btnLogin">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
@@ -115,5 +116,11 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<script type="text/javascript">
+      let baseUrl = '<?=$site_url;?>';
+      alert(baseUrl);
+</script>
+<script src="dist/js/custom.js"></script>
+
 </body>
 </html>

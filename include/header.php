@@ -3,6 +3,11 @@
    $commonFunction= new functions();
    $get_manager_portal_detail=$commonFunction->get_manager_portal_detail();
    $portal_detail=$get_manager_portal_detail->data;
+   if(ENV=='prod'){
+    $site_url=$portal_detail->MANAGER_PORTAL_URL;
+ }else{
+    $site_url='https://localhost/cafecenter-manager/';
+ }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,10 +61,10 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?=$portal_detail->MANAGER_PORTAL_URL?>" class="nav-link">Home</a>
+        <a href="<?=$site_url?>" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?=$portal_detail->MANAGER_PORTAL_URL?>" class="nav-link">Profile</a>
+        <a href="<?=$site_url?>" class="nav-link">Profile</a>
       </li>
       
     </ul>
@@ -170,7 +175,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="<?=$portal_detail->MANAGER_PORTAL_URL?>" class="brand-link">
+    <a href="<?=$site_url?>" class="brand-link">
       <img src="<?=$portal_detail->LOGO?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8;margin-left: 3.8rem;float: none;">
       <!-- <span class="brand-text font-weight-light">AdminLTE 3</span> -->
     </a>
@@ -234,7 +239,7 @@
             </ul>
           </li> -->
           <li class="nav-item">
-            <a href="<?=$portal_detail->MANAGER_PORTAL_URL?>dashboard.php" class="nav-link">
+            <a href="<?=$site_url?>dashboard.php" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
               Dashboard
