@@ -34,7 +34,7 @@
   <link rel="icon" type="image/x-icon" href="<?=$portal_detail->SITE_ICON?>">
 </head>
 <body class="hold-transition register-page">
-<div class="register-box">
+<div class="register-box" style="width: auto;">
 <?php
   if($get_manager_portal_detail->status==1){
   ?>
@@ -44,53 +44,114 @@
 
   <div class="card">
     <div class="card-body register-card-body">
-      <p class="login-box-msg">Register a new membership</p>
+      <p class="login-box-msg">Register a new manager</p>
 
-      <form action="index.html" method="post">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Full name">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
+      <form method="post" id="signupFrom">
+        <div class="form-group">
+          <select class="form-control" name="user_type" id="user_type">
+              <option value="">Manager Type</option>
+              <option value="1">District Manager</option>
+              <option value="2">Distributor</option>
+            </select>
         </div>
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Enter ...">
+              <input type="text" class="form-control" placeholder="First Name" name="fname" id="fname">
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Enter ..." disabled="">
+              <input type="text" class="form-control" placeholder="Last Name" name="lname" id="lname">
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="email" class="form-control" placeholder="Email Address" name="email" id="email">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Mobile No." name="contact_number" id="contact_number">
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+        <div class="form-group">
+              <input type="text" class="form-control" placeholder="Address" name="address" id="address">
+        </div>
+        <?php
+        $state_list=$commonFunction->state_list();
+        $state_status=$state_list->status;
+        $state_message=$state_list->message;
+        $state_data=$state_list->data;
+        ?>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+            <select class="form-control" name="state" id="state" <?php if($state_status == 0){ echo 'disabled'; }?> onchange="return loadDistric(this.value)">
+              <?php 
+              if($state_status == 0){
+                echo '<option value="">'.$state_message.'</option>';
+              }else{
+                echo '<option value="">Select State</option>';
+                foreach($state_data as $state){
+                  echo '<option value="'.$state->state_id.'">'.$state->state_title.'</option>';
+              }
+              }
+              ?>
+              
+            </select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+            <select class="form-control" name="district" id="district">
+              <option value="">Select District</option>
+              
+            </select>
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Retype password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="City" name="city" id="city">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Zipcode" name="zipcode" id="zipcode">
             </div>
           </div>
         </div>
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                 <select id="gender" name="gender" class="form-control" >
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="Other">other</option>
+                  </select>
+            </div>
+
+            <div class="form-group col-md-4">
+            <input type="text" class="form-control" id="dob" name="dob" max="<?php echo date('Y-m-d')?>" value="" placeholder="Dob" onfocus="(this.type='date')"
+        onblur="(this.type='text')"> 
+            </div>
+
+          <div class="form-group col-md-2">
+            <input type="file" class="form-control" id="document" name="document" accept=".jpg, .jpeg, .pdf" placeholder="ID Proof" title="ID Proof">
+          </div>
+        </div>
+        
+        
+        
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
@@ -102,7 +163,7 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
+            <button type="submit" class="btn btn-primary btn-block btnsbt" id="sdbtn" disabled>Register</button>
           </div>
           <!-- /.col -->
         </div>
@@ -141,6 +202,7 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<script src="dist/js/jquery.validate.min.js"></script>
 <script type="text/javascript">
       let baseUrl = '<?=$site_url;?>';
 </script>

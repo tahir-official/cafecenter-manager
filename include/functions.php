@@ -41,6 +41,17 @@ class Functions
     
   }
 
+  function state_list(){
+    $url=SSOAPI.'get_state_list';
+    $data=array(
+         'api_key' => API_KEY
+    );
+    $method='POST';
+    $response=$this->curl_call($url,$data,$method);
+    return $result = json_decode($response);
+
+  }
+
   function redirect($location)
 	{ 
 		echo '<script>window.location.href="'.$location.'"</script>';
