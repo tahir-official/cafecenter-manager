@@ -6,7 +6,7 @@
 .register-logo {
   font-size: 2.1rem;
   font-weight: 300;
-  margin-bottom: .9rem;
+  margin-bottom: 0.9rem;
   text-align: center;
 
   a {
@@ -24,12 +24,22 @@
   justify-content: center;
 }
 
-.login-box,
-.register-box {
+.login-box {
   width: 360px;
 
   @media (max-width: map-get($grid-breakpoints, sm)) {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
+    width: 90%;
+  }
+
+  .card {
+    margin-bottom: 0;
+  }
+}
+
+.register-box {
+  @media (max-width: map-get($grid-breakpoints, sm)) {
+    margin-top: 0.5rem;
     width: 90%;
   }
 
@@ -102,7 +112,7 @@
   margin: 10px 0;
 }
 
-@include dark-mode () {
+@include dark-mode() {
   .login-card-body,
   .register-card-body {
     background-color: $dark;

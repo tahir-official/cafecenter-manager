@@ -3,8 +3,12 @@
    $commonFunction= new functions();
    $get_manager_portal_detail=$commonFunction->get_manager_portal_detail();
    $portal_detail=$get_manager_portal_detail->data;
-   
-   //if(isset($_SESSION['is_store_logged_in'])){ $commonFunction->redirect('dashboard.php'); }
+   if(ENV=='prod'){
+      $site_url=$portal_detail->MANAGER_PORTAL_URL;
+   }else{
+      $site_url='https://localhost/cafecenter-manager/';
+   }
+   if(isset($_SESSION['is_manager_logged_in'])){ $commonFunction->redirect('dashboard.php'); }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +31,7 @@
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="icon" type="image/x-icon" href="<?=$portal_detail->SITE_ICON?>">
 </head>
 <body class="hold-transition register-page">
 <div class="register-box">
@@ -47,6 +52,18 @@
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Enter ...">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Enter ..." disabled="">
             </div>
           </div>
         </div>
@@ -124,5 +141,9 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<script type="text/javascript">
+      let baseUrl = '<?=$site_url;?>';
+</script>
+<script src="dist/js/custom.js"></script>
 </body>
 </html>
