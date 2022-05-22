@@ -47,6 +47,9 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
       <div id="alert" ></div>
+      <?php
+       if (isset($_SESSION['message'])){ echo $_SESSION['message'];  unset($_SESSION['message']);}
+      ?>
       <form method="post" id="loginFrom">
         <div class="input-group mb-3">
           <input type="text" name="username" id="username" class="form-control" placeholder="Username (Phone or Email)" value="<?php if(isset($_COOKIE["loginId"])) { echo $_COOKIE["loginId"]; } ?>">
@@ -62,14 +65,14 @@
            
         </div>
         <div class="row">
-          <div class="col-8">
+          <!-- <div class="col-8">
             <div class="icheck-primary">
               <input type="checkbox" id="remember" name="remember" <?php if(isset($_COOKIE["loginId"])) { ?> checked <?php } ?>>
               <label for="remember">
                 Remember Me
               </label>
             </div>
-          </div>
+          </div> -->
           <!-- /.col -->
           <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block btnLogin">Sign In</button>

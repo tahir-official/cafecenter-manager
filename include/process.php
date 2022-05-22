@@ -160,7 +160,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'otp_verify')
 		$response=$commonFunction->curl_call($url,$data,$method);
 		$result = json_decode($response);
 		if($result->status != 0){
-			 if($result->page != 'foget'){
+			 if($result->page != 'forget'){
 
 					$_SESSION['is_manager_logged_in'] = true;
 					$_SESSION['manager_id'] =$manager_id= $result->user_id;
@@ -178,7 +178,15 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'otp_verify')
 					$output['url']=$site_url.'dashboard.php';
 
 			 }else{
-
+					$output['status']=1;
+					$manager_portal_detail=$commonFunction->get_manager_portal_detail();
+					$portal_detail=$manager_portal_detail->data;
+					if(ENV=='prod'){
+						$site_url=$portal_detail->MANAGER_PORTAL_URL;
+					}else{
+						$site_url='https://localhost/cafecenter-manager/';
+					}
+					$output['url']=$site_url.'reset.php?token='.$result->token;
 			 }
 		}else{
 				//error message
@@ -239,7 +247,50 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'send_otp')
   }
   echo json_encode($output);
 }
-  /*send otp action end*/ 
+/*send otp action end*/
+/*reset password action start*/
+else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'reset_password')
+{ 
+	//method check statement
+	if ($_SERVER["REQUEST_METHOD"] == "POST"){
+		$url=SSOAPI.'reset_password';
+		$data=array(
+			
+			'token' => $_POST['token'],
+			'password' => $_POST['password'],
+			'api_key' => API_KEY
+			
+		);
+		$method='POST';
+		$response=$commonFunction->curl_call($url,$data,$method);
+		$result = json_decode($response);
+		if($result->status != 0){
+			$_SESSION['message'] ='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.' !!</div>';
+			$output['status']=1;
+			$manager_portal_detail=$commonFunction->get_manager_portal_detail();
+			$portal_detail=$manager_portal_detail->data;
+			if(ENV=='prod'){
+				$site_url=$portal_detail->MANAGER_PORTAL_URL;
+			}else{
+				$site_url='https://localhost/cafecenter-manager/';
+			}
+			$output['url']=$site_url.'index.php';
+
+		}else{
+			//error message
+			$output['message'] ='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> '.$result->message.'</div>';
+			$output['status']=0;
+	  }
+	}
+	else{
+		//error message
+		$output['message'] ='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> Something Went Wrong !!</div>';
+		$output['status']=0;
+		
+	}
+  echo json_encode($output);
+} 
+/*reset password action end*/
 else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'get_distric')
 { 
    //method check statement
@@ -261,7 +312,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'get_distric')
 				$distric_html .='<option value="'.$district->districtid.'">'.$district->district_title.'</option>';
 			 }
 
-			 $output['message'] ='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.' !!</div>';
+			  $output['message'] ='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.' !!</div>';
 			  $output['status']=1;
 			  $output['html']=$distric_html;
 

@@ -9,23 +9,13 @@
       $site_url='https://localhost/cafecenter-manager/';
    }
    if(isset($_SESSION['is_manager_logged_in'])){ $commonFunction->redirect('dashboard.php'); }
-   if(isset($_REQUEST['number'])){
-     if($_REQUEST['number']==''){
-      $commonFunction->redirect('index.php');
-     }
-   }else{
-    $commonFunction->redirect('index.php');
-   }
-
-
-   if(isset($_REQUEST['page'])){
-    if($_REQUEST['page']==''){
+   if(isset($_REQUEST['token'])){
+    if($_REQUEST['token']==''){
      $commonFunction->redirect('index.php');
     }
    }else{
      $commonFunction->redirect('index.php');
    }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +29,6 @@
     echo '<title>Error</title>';
   }
   ?>
-  
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -55,64 +44,66 @@
 <div class="login-box">
 <?php
   if($get_manager_portal_detail->status==1){
-    ?>
-      <div class="login-logo">
-      <a href="<?=$site_url?>"><img style="width: 200px;" src="<?=$portal_detail->LOGO?>" ></a>
-     </div>
+  ?>
+  <div class="login-logo">
+  <a href="<?=$portal_detail->MANAGER_PORTAL_URL?>"><img style="width: 200px;" src="<?=$portal_detail->LOGO?>" ></a>
+  </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
+      <p class="login-box-msg">Reset password</p>
       <div id="alert" ></div>
       <?php
        if (isset($_SESSION['message'])){ echo $_SESSION['message'];  unset($_SESSION['message']);}
       ?>
-      <form method="post" id="otpverifyFrom">
-        <input type="hidden" name="page" value="<?php if(isset($_REQUEST['page'])){echo $_REQUEST['page'];}?>">
-        <div class="form-group">
-        <input type="text" class="form-control"  name="number" id="number" value="<?php if(isset($_REQUEST['number'])){echo $_REQUEST['number'];}?>" readonly>
+      <form method="post" id="resetFrom">
+      <input type="hidden" name="token" value="<?php if(isset($_REQUEST['token'])){echo $_REQUEST['token'];}?>" id="token">
+       <div class="form-group">
+          <input type="password" name="password" id="password" class="form-control" placeholder="Password" >
+          
+           
         </div>
         <div class="form-group">
-        <input type="password" class="form-control"  name="otp" id="otp"  placeholder="OTP">
+          <input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="Confirm Password" >
+          
+           
         </div>
         <div class="row">
-          <div class="col-6">
-            <a href="index.php" class="btn btn-primary btn-block">Cancel</a>
-          </div>
-          <!-- /.col -->
-          <div class="col-6">
-            <button type="submit" class="btn btn-primary btn-block btnOtpverify">Submit</button>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block btnResetpass">Submit</button>
           </div>
           <!-- /.col -->
         </div>
       </form>
-      <p class="mb-1" id="vload">
-        <a href="javascript:void(0)" onclick="return sent_otp(<?php if(isset($_REQUEST['number'])){echo $_REQUEST['number'];}?>,'<?php if(isset($_REQUEST['page'])){echo $_REQUEST['page'];}?>')">Send again</a>
+
+      <p class="mt-3 mb-1">
+        <a href="index.php">Login</a>
       </p>
-
-     
-
-      
+      <p class="mb-0">
+        <a href="signup.php" class="text-center">Register a new membership</a>
+      </p>
     </div>
     <!-- /.login-card-body -->
   </div>
-    <?php
-  }else{
-    ?>
-    <div class="login-logo">
-     Error
-    </div>
+  <?php
+  }
+  else{
+  ?>
+  <div class="login-logo">
+  Error
+  </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
     <div class="alert alert-danger" role="alert">
-                          <?php echo $get_manager_portal_detail->message?>
-                        </div>
-     </div>
+      <?php echo $get_manager_portal_detail->message?>
+    </div>
+    </div>
     <!-- /.login-card-body -->
   </div>
-    <?php
+  <?php
   }
-?>
+  ?>
   
 </div>
 <!-- /.login-box -->
@@ -128,6 +119,5 @@
       let baseUrl = '<?=$site_url;?>';
 </script>
 <script src="dist/js/custom.js"></script>
-
 </body>
 </html>

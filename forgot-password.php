@@ -3,8 +3,12 @@
    $commonFunction= new functions();
    $get_manager_portal_detail=$commonFunction->get_manager_portal_detail();
    $portal_detail=$get_manager_portal_detail->data;
-   
-   //if(isset($_SESSION['is_store_logged_in'])){ $commonFunction->redirect('dashboard.php'); }
+   if(ENV=='prod'){
+      $site_url=$portal_detail->MANAGER_PORTAL_URL;
+   }else{
+      $site_url='https://localhost/cafecenter-manager/';
+   }
+   if(isset($_SESSION['is_manager_logged_in'])){ $commonFunction->redirect('dashboard.php'); }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +31,7 @@
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="icon" type="image/x-icon" href="<?=$portal_detail->SITE_ICON?>">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -40,19 +45,23 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">You forgot your password? Here you can easily retrieve a new password.</p>
-
-      <form action="recover-password.html" method="post">
+      <div id="alert" ></div>
+      <?php
+       if (isset($_SESSION['message'])){ echo $_SESSION['message'];  unset($_SESSION['message']);}
+      ?>
+      <form method="post" id="forgetpassFrom">
+      <input type="hidden" name="page" value="forget" id="page">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="text" class="form-control" placeholder="Mobile Number" name="number" id="number">
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+              <span class="fas fa-mobile"></span>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Request new password</button>
+            <button type="submit" class="btn btn-primary btn-block btnForgetpass">Request OTP</button>
           </div>
           <!-- /.col -->
         </div>
@@ -96,5 +105,10 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<script src="dist/js/jquery.validate.min.js"></script>
+<script type="text/javascript">
+      let baseUrl = '<?=$site_url;?>';
+</script>
+<script src="dist/js/custom.js"></script>
 </body>
 </html>
