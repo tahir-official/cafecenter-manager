@@ -6,6 +6,7 @@
    
    $manager_detail=$commonFunction->manager_detail($_SESSION['manager_id']);
    $manager_data=$manager_detail->data;
+   $manager_type=$manager_data->user_type;
    if(ENV=='prod'){
     $site_url=$portal_detail->MANAGER_PORTAL_URL;
    }else{
@@ -291,17 +292,123 @@
               </p>
             </a>
           </li>
+          <?php
+          if($manager_type==1){
+          ?>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+              Distributors Management
+                <i class="fas fa-angle-left right"></i>
+                <!-- <span class="badge badge-info right">6</span> -->
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/layout/top-nav.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Distributors
+                  <!-- <span class="right badge badge-danger">New</span> -->
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Distributor</p>
+                </a>
+              </li>
+              
+             
+            </ul>
+          </li>
+          <?php
+          }else{
+            ?>
+            <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+              Retailers Management
+                <i class="fas fa-angle-left right"></i>
+                <!-- <span class="badge badge-info right">6</span> -->
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/layout/top-nav.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Retailers
+                  <!-- <span class="right badge badge-danger">New</span> -->
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Retailer</p>
+                </a>
+              </li>
+              
+             
+            </ul>
+          </li>
+            <?php
+          }
+          ?>
+          
           
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-wallet"></i>
               <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
+                Wallet Management
+                <i class="fas fa-angle-left right"></i>
+                <!-- <span class="badge badge-info right">6</span> -->
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/layout/top-nav.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Wallet
+                  <!-- <span class="right badge badge-danger">New</span> -->
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Transfers</p>
+                </a>
+              </li>
+              
+             
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="pages/gallery.html" class="nav-link">
+              <i class="nav-icon fas fa-award"></i>
+              <p>
+               Subscription Plan
               </p>
             </a>
           </li>
           <li class="nav-item">
+            <a href="pages/gallery.html" class="nav-link">
+              <i class="nav-icon fas fa-exchange-alt"></i>
+              
+              <p>
+              Transaction History
+              </p>
+            </a>
+          </li>
+
+          
+          
+          <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
@@ -789,7 +896,7 @@
               Logout
               </p>
             </a>
-          </li>
+          </li> -->
           <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-search"></i>
