@@ -45,8 +45,9 @@
   <div class="card">
     <div class="card-body register-card-body">
       <p class="login-box-msg">Register a new manager</p>
-
+      <div id="alert" ></div>
       <form method="post" id="signupFrom">
+        <input type="hidden" name="page" value="signup">
         <div class="form-group">
           <select class="form-control" name="user_type" id="user_type">
               <option value="">Manager Type</option>
@@ -147,6 +148,18 @@
 
           <div class="form-group col-md-2">
             <input type="file" class="form-control" id="document" name="document" accept=".jpg, .jpeg, .pdf" placeholder="ID Proof" title="ID Proof">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="Confirm Password " name="c_password" id="c_password">
+            </div>
           </div>
         </div>
         

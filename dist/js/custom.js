@@ -13,6 +13,38 @@ $("#agreeTerms").click(function () {
   }
 });
 
+function sent_otp(cnumber, page) {
+  $.ajax({
+    method: "POST",
+    url: baseUrl + "include/process.php?action=send_otp",
+    data: { cnumber: cnumber, page: page },
+    dataType: "JSON",
+    beforeSend: function () {
+      $("#alert").html(
+        '<i class="fa fa-spinner fa-spin" style="font-size:27px;margin-bottom: 15px;color: brown;"></i>'
+      );
+      $("#vload").html(
+        '<i class="fa fa-spinner fa-spin" style="font-size:27px;margin-bottom: 15px;color: brown;margin-top: 5px;"></i>'
+      );
+    },
+  })
+
+    .fail(function (response) {
+      alert("Try again later.");
+    })
+
+    .done(function (response) {
+      if (response.status == 0) {
+        $("#alert").html(response.message);
+        $("#alert").show();
+      } else {
+        location.href = response.url;
+      }
+    });
+
+  return false;
+}
+
 /*login script start*/
 $("#alert").hide();
 $("#loginFrom").submit(function (e) {
@@ -93,6 +125,7 @@ $(document).ready(function () {
       contact_number: {
         required: true,
         number: true,
+        maxlength: 10,
       },
       address: {
         required: true,
@@ -116,12 +149,19 @@ $(document).ready(function () {
       dob: {
         required: true,
       },
+      password: {
+        required: true,
+      },
+      c_password: {
+        required: true,
+        equalTo: "#password",
+      },
     },
     submitHandler: function (form) {
       let formData = new FormData($("#signupFrom")[0]);
       $.ajax({
         method: "POST",
-        url: baseUrl + "include/process.php?action=add_edit_users",
+        url: baseUrl + "include/process.php?action=add_user",
         data: formData,
         dataType: "JSON",
         cache: false,
@@ -131,7 +171,6 @@ $(document).ready(function () {
           $(".btnsbt").html('<i class="fa fa-spinner"></i> Processing...');
           $(".btnsbt").prop("disabled", true);
           $("#alert").hide();
-          $("#popupalert").hide();
         },
       })
 
@@ -140,22 +179,17 @@ $(document).ready(function () {
         })
 
         .done(function (response) {
-          $(".btnsbt").html("Submit");
+          $(".btnsbt").html("Register");
           $(".btnsbt").prop("disabled", false);
           if (response.status == 0) {
-            $("#popupalert").show();
-            $("#popupalert").html(response.message);
-          } else {
-            $("#form-dialog-other").trigger("click");
-            $("#mytable").DataTable().destroy();
-            tableLoad(response.fetchTableurl, response.user_type);
             $("#alert").show();
             $("#alert").html(response.message);
-            $("#district_manager_form")[0].reset();
+          } else {
+            location.href = response.url;
           }
         })
         .always(function () {
-          $(".btnsbt").html("Submit");
+          $(".btnsbt").html("Register");
           $(".btnsbt").prop("disabled", false);
         });
       return false;
@@ -164,3 +198,61 @@ $(document).ready(function () {
 });
 
 /*signup form end*/
+
+/*otpverify form start*/
+$(document).ready(function () {
+  $("#otpverifyFrom").validate({
+    rules: {
+      number: {
+        required: true,
+        number: true,
+        maxlength: 10,
+      },
+      otp: {
+        required: true,
+        number: true,
+      },
+    },
+    submitHandler: function (form) {
+      let formData = new FormData($("#otpverifyFrom")[0]);
+      $.ajax({
+        method: "POST",
+        url: baseUrl + "include/process.php?action=otp_verify",
+        data: formData,
+        dataType: "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+          $(".btnOtpverify").html(
+            '<i class="fa fa-spinner"></i> Processing...'
+          );
+          $(".btnOtpverify").prop("disabled", true);
+          $("#alert").hide();
+        },
+      })
+
+        .fail(function (response) {
+          alert("Try again later.");
+        })
+
+        .done(function (response) {
+          $(".btnOtpverify").html("Submit");
+          $(".btnOtpverify").prop("disabled", false);
+          if (response.status == 0) {
+            $("#alert").show();
+            $("#alert").html(response.message);
+          } else {
+            location.href = response.url;
+          }
+        })
+        .always(function () {
+          $(".btnOtpverify").html("Submit");
+          $(".btnOtpverify").prop("disabled", false);
+        });
+      return false;
+    },
+  });
+});
+
+/*otpverify form end*/

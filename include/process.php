@@ -66,7 +66,180 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'login'){
 echo json_encode($output);
 }
 /*login action end*/
-/*get distric action start*/
+/*signup action start*/
+else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'add_user')
+{ 
+	//method check statement
+	if ($_SERVER["REQUEST_METHOD"] == "POST"){
+		if($_FILES["document"]["error"] == 0) {
+			$image_status=1;
+			$document = new CurlFile($_FILES['document']['tmp_name'], $_FILES['document']['type'], $_FILES['document']['name']);
+			} else {
+			$image_status=0;
+			$document = '';
+			}
+
+			if($_POST['page']=='signup'){
+				$added_by='self';
+				$added_id=1;
+			}
+
+			$url=SSOAPI.'add_user';
+			
+			$data=array(
+				'user_type' => $_POST['user_type'],
+				'fname' => $_POST['fname'],
+				'lname' => $_POST['lname'],
+				'email' => $_POST['email'],
+				'password' => $_POST['password'],
+				'contact_number' => $_POST['contact_number'],
+				'address' => $_POST['address'],
+				'state' => $_POST['state'],
+				'district' => $_POST['district'],
+				'city' => $_POST['city'],
+				'zipcode' => $_POST['zipcode'],
+				'gender' => $_POST['gender'],
+				'dob' => $_POST['dob'],
+				'image_status'=> $image_status,
+				'document'=> $document,
+				'added_by' => $added_by,
+				'added_id' => $added_id,
+				'email_verification' => '1',
+				'phone_verification' => '0',
+				'status' => '1',
+				'cdate' => date('Y-m-d H:i:s'),
+				'api_key' => API_KEY,
+				'page' => $_POST['page']
+		  );
+			$method='POST';
+			$response=$commonFunction->curl_call($url,$data,$method);
+      $result = json_decode($response);
+			if($result->status != 0){
+				
+				$_SESSION['message'] ='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.', Please enter OTP and verify your number.</div>';
+				$manager_portal_detail=$commonFunction->get_manager_portal_detail();
+				$portal_detail=$manager_portal_detail->data;
+				if(ENV=='prod'){
+					$site_url=$portal_detail->MANAGER_PORTAL_URL;
+			  }else{
+					$site_url='https://localhost/cafecenter-manager/';
+			  }
+				$output['url']=$site_url.'otpverification.php?number='.$_POST['contact_number'].'&page='.$_POST['page'];
+				$output['status']=1;
+			}else{
+				//error message
+		    $output['message'] ='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> '.$result->message.'</div>';
+		    $output['status']=0;
+			}
+
+	}else{
+			//error message
+			$output['message'] ='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> Something Went Wrong !!</div>';
+			$output['status']=0;
+			
+	}
+	echo json_encode($output);	
+}
+/*signup action end*/
+
+/*otpverify action start*/
+else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'otp_verify')
+{ 
+	//method check statement
+	if ($_SERVER["REQUEST_METHOD"] == "POST"){
+		$url=SSOAPI.'otp_verify';
+		$data=array(
+			
+			'page' => $_POST['page'],
+			'number' => $_POST['number'],
+			'otp' => $_POST['otp'],
+			'api_key' => API_KEY
+			
+		);
+		$method='POST';
+		$response=$commonFunction->curl_call($url,$data,$method);
+		$result = json_decode($response);
+		if($result->status != 0){
+			 if($result->page != 'foget'){
+
+					$_SESSION['is_manager_logged_in'] = true;
+					$_SESSION['manager_id'] =$manager_id= $result->user_id;
+					$_SESSION['manager_type'] = $result->user_type;
+					$_SESSION['manager_email'] = $result->user_email;
+					$_SESSION['message'] ='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.'</div>';
+					$output['status']=1;
+					$manager_portal_detail=$commonFunction->get_manager_portal_detail();
+					$portal_detail=$manager_portal_detail->data;
+					if(ENV=='prod'){
+						$site_url=$portal_detail->MANAGER_PORTAL_URL;
+					}else{
+						$site_url='https://localhost/cafecenter-manager/';
+					}
+					$output['url']=$site_url.'dashboard.php';
+
+			 }else{
+
+			 }
+		}else{
+				//error message
+		    $output['message'] ='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> '.$result->message.'</div>';
+		    $output['status']=0;
+		}
+
+	}else{
+		//error message
+		$output['message'] ='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> Something Went Wrong !!</div>';
+		$output['status']=0;
+		
+}
+  echo json_encode($output);
+}
+/*otpverify action end*/
+
+/*send otp action start*/
+else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'send_otp')
+{ 
+	//method check statement
+	if ($_SERVER["REQUEST_METHOD"] == "POST"){
+		$url=SSOAPI.'send_otp';
+		$data=array(
+			
+			'page' => $_POST['page'],
+			'number' => $_POST['cnumber'],
+			'api_key' => API_KEY
+			
+		);
+		$method='POST';
+		$response=$commonFunction->curl_call($url,$data,$method);
+		$result = json_decode($response);
+		if($result->status != 0){
+
+			    $_SESSION['message'] ='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.'</div>';
+					
+					$manager_portal_detail=$commonFunction->get_manager_portal_detail();
+					$portal_detail=$manager_portal_detail->data;
+					if(ENV=='prod'){
+						$site_url=$portal_detail->MANAGER_PORTAL_URL;
+					}else{
+						$site_url='https://localhost/cafecenter-manager/';
+					}
+					$output['url']=$site_url.'otpverification.php?number='.$_POST['cnumber'].'&page='.$_POST['page'];
+				  $output['status']=1;
+		}else{
+				//error message
+		    $output['message'] ='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> '.$result->message.'</div>';
+		    $output['status']=0;
+		}
+	}
+  else{
+		//error message
+		$output['message'] ='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> Something Went Wrong !!</div>';
+		$output['status']=0;
+		
+  }
+  echo json_encode($output);
+}
+  /*send otp action end*/ 
 else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'get_distric')
 { 
    //method check statement
