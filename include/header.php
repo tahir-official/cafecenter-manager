@@ -405,6 +405,15 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="<?=$site_url?>logout.php" class="nav-link">
+              <i class="nav-icon fas fa-power-off"></i>
+              
+              <p>
+              Logout
+              </p>
+            </a>
+          </li>
 
           
           
