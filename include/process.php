@@ -295,16 +295,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'get_distric')
 { 
    //method check statement
 	 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-			$url=SSOAPI.'get_distric_list_by_state';
-			$data=array(
-					'api_key' => API_KEY,
-					'state_id' => $_POST['state_id'],
-					
-			);
-			$method='POST';
-			$response=$commonFunction->curl_call($url,$data,$method);
-			$result = json_decode($response);
-
+			$result=$commonFunction->distric_list($_POST['state_id']);
 			if($result->status != 0){
 			 $district_data=$result->data;
        $distric_html='<option value="">Select District</option>';

@@ -35,12 +35,81 @@
             <!-- Profile Image -->
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
-                <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle"
-                       src="<?=$manager_data->profile?>"
-                       alt="<?=$manager_data->fname.' '.$manager_data->lname?>">
-                </div>
+              <style>
+                  .container {
+                    width: 150px;
+                    height: 150px;
+                    display: block;
+                    margin: 0 auto;
+                  }
 
+                  .outer {
+                    width: 100% !important;
+                    height: 100% !important;
+                    max-width: 150px !important; /* any size */
+                    max-height: 150px !important; /* any size */
+                    margin: auto;
+                    /* background-color: #6eafd4; */
+                    border-radius: 100%;
+                    position: relative;
+                    background-image: url(<?=$manager_data->profile?>);
+                    background-position: center;
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                    }
+                    
+                  .inner {
+                    background-color: #ff1414;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 100%;
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                  }
+
+                  .inner:hover {
+                    background-color: #5555ff;
+                  }
+                  .inputfile {
+                      opacity: 0;
+                      overflow: hidden;
+                      position: absolute;
+                      z-index: 1;
+                      width: 50px;
+                      height: 50px;
+                  }
+                  .inputfile + label {
+                      font-size: 1.25rem;
+                      text-overflow: ellipsis;
+                      white-space: nowrap;
+                      display: inline-block;
+                      overflow: hidden;
+                      width: 50px;
+                      height: 50px;
+                      pointer-events: none;
+                      cursor: pointer;
+                      line-height: 50px;
+                      text-align: center;
+                  }
+                  .inputfile + label svg {
+                      fill: #fff;
+                  }
+              </style>
+                <div class="text-center">
+                  <!-- <img class="profile-user-img img-fluid img-circle"
+                       src="<?=$manager_data->profile?>"
+                       alt="<?=$manager_data->fname.' '.$manager_data->lname?>"> -->
+                       <div class="container">
+                        <div class="outer">
+                          <div class="inner">
+                          <input class="inputfile" type="file" name="pic" accept="image/*">
+                          <label><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg></label>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+                
                 <h3 class="profile-username text-center"><?=$manager_data->fname.' '.$manager_data->lname?></h3>
 
                 <p class="text-muted text-center"><?=$manager_data->email?></p>
@@ -164,9 +233,108 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
+                        <label for="state" class="col-sm-2 col-form-label">State</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                        <?php
+                        $state_list=$commonFunction->state_list();
+                        $state_status=$state_list->status;
+                        $state_message=$state_list->message;
+                        $state_data=$state_list->data;
+                        ?>
+                        <select class="form-control" name="state" id="state" <?php if($state_status == 0){ echo 'disabled'; }?> onchange="return loadDistric(this.value)">
+                          <?php 
+                          if($state_status == 0){
+                            echo '<option value="">'.$state_message.'</option>';
+                          }else{
+                            echo '<option value="">Select State</option>';
+                            foreach($state_data as $state){
+                              $state_selected='';
+                              if($manager_data->state==$state->state_id){
+                              $state_selected='selected';    
+                              }
+                            echo '<option '.$state_selected.' value="'.$state->state_id.'">'.$state->state_title.'</option>';
+                            }
+                          }
+                          ?>
+                          
+                        </select>
+                        </div>
+                      </div>
+                      
+
+                      <div class="form-group row">
+                        <label for="district" class="col-sm-2 col-form-label">District</label>
+                        <div class="col-sm-10">
+                        
+                        
+                        <?php
+                        $distric_list=$commonFunction->distric_list($manager_data->state);
+                        $distric_status=$distric_list->status;
+                        $distric_message=$distric_list->message;
+                        $distric_data=$distric_list->data;
+                        ?>
+                        <select class="form-control" name="district" id="district" <?php if($distric_status == 0){ echo 'disabled'; }?>>
+                          <?php 
+                          if($distric_status == 0){
+                            echo '<option value="">'.$distric_message.'</option>';
+                          }else{
+                            echo '<option value="">Select District</option>';
+                            foreach($distric_data as $distric){
+                              $district_selected='';
+                              if($manager_data->district==$distric->districtid){
+                              $district_selected='selected';    
+                              }
+                            echo '<option '.$district_selected.' value="'.$distric->districtid.'">'.$distric->district_title.'</option>';
+                            }
+                          }
+                          ?>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="contact_number" class="col-sm-2 col-form-label">City</label>
+                        <div class="col-sm-10">
+                          <input  type="text" class="form-control" id="city" name="city" placeholder="City" value="<?=$manager_data->city?>">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="zipcode" class="col-sm-2 col-form-label">Zipcode</label>
+                        <div class="col-sm-10">
+                          <input  type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Zipcode" value="<?=$manager_data->zipcode?>">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+                        <div class="col-sm-10">
+                        <select id="gender" name="gender" class="form-control" >
+                          <option value="">Select Gender</option>
+                          <?php
+                          $gender=$manager_data->gender;
+                          $male_selected='';
+                          $female_selected='';
+                          $other_selected='';
+                          if($gender=='male'){
+                              $male_selected='selected';
+                          }
+                          if($gender=='female'){
+                              $female_selected='selected';
+                          }
+                          if($gender=='other'){
+                              $other_selected='selected';
+                          }
+                          echo '<option value="male" '.$male_selected.'>Male</option>
+                                          <option value="female" '.$female_selected.'>Female</option>
+                                          <option value="other" '.$other_selected.'>Other</option>';
+                          
+                          ?>
+                               
+                        </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="dob" class="col-sm-2 col-form-label">Dob</label>
+                        <div class="col-sm-10">
+                          <input  type="date" class="form-control" id="dob" name="dob" placeholder="DOB" max="<?=date('Y-m-d');?>" value="<?=$manager_data->dob?>">
                         </div>
                       </div>
                       
@@ -180,46 +348,28 @@
                   <!-- /.tab-pane -->
 
                   <div class="tab-pane" id="password_setting">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" name="users_password_form" id="users_password_form" method="post">
+                     <input type="hidden" name="user_type" value="<?=$manager_data->user_type?>">
+                     <input type="hidden" name="row_id" value="<?=$manager_data->id?>">
                       <div class="form-group row">
-                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                        <label for="current_password" class="col-sm-2 col-form-label">Current Password</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" placeholder="Name">
+                          <input type="password" class="form-control" id="current_password" name="current_password" placeholder="Current Password">
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                        <label for="new_password" class="col-sm-2 col-form-label">New Password</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                        <input type="password" class="form-control" id="new_password" name="new_password" placeholder="New Password">
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
+                        <label for="confirm_password" class="col-sm-2 col-form-label">Confirm Password</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName2" placeholder="Name">
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
                         </div>
                       </div>
-                      <div class="form-group row">
-                        <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-                        <div class="col-sm-10">
-                          <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
+                     
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
                           <button type="submit" class="btn btn-danger">Submit</button>
