@@ -367,3 +367,27 @@ function tableLoad(loadurl, other_id) {
   });
 }
 /*load table data end*/
+/*load table data start*/
+function abc(other_id) {
+  var dataTable = $("#mytable").DataTable({
+    processing: true,
+    serverSide: true,
+    order: [],
+    ajax: {
+      url: baseUrl + "include/process.php?action=load_table",
+      type: "POST",
+      dataType: "json",
+      data: {
+        other_id: other_id,
+      },
+    },
+    columnDefs: [
+      {
+        targets: "_all" /* column index */,
+
+        orderable: false /* true or false */,
+      },
+    ],
+  });
+}
+/*load table data end*/

@@ -332,7 +332,20 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'get_distric')
 	echo json_encode($output);
 }
 /*get distric action end*/
+/*get table action start*/
+else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'load_table')
+{
 
+	
+		$url=SSOAPI.'get_user_table_list';
+		$data=$_POST;
+		$method='POST';
+		$response=$commonFunction->curl_call($url,$data,$method);
+		$output = json_decode($response);
+		//echo $response;
+		echo json_encode($output);
+}
+/*get table action end*/
 /*forgetPassword action start*/
 else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'forgetPassword')
 {   

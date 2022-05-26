@@ -19,6 +19,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
   <?php
   if($get_manager_portal_detail->status==1){
     echo '<title>'.$portal_detail->MANAGER_PROJECT.'</title>';

@@ -13,7 +13,6 @@
     <section class="content-header">
       <div class="container-fluid">
         <?php
-        //print_r($manager_data->subscription_status);
         if (isset($_SESSION['message'])){ echo $_SESSION['message'];  unset($_SESSION['message']);}
         ?>
         <div class="row mb-2">
@@ -82,5 +81,6 @@
 <script>
     $(document).ready(function(){
         tableLoad("<?=SSOAPI?>get_user_table_list",2);
+        //abc(2);
     });
 </script>
