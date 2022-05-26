@@ -343,3 +343,27 @@ $(document).ready(function () {
 });
 
 /*reset password form end*/
+
+/*load table data start*/
+function tableLoad(loadurl, other_id) {
+  var dataTable = $("#mytable").DataTable({
+    processing: true,
+    serverSide: true,
+    order: [],
+    ajax: {
+      url: loadurl,
+      type: "POST",
+      data: {
+        other_id: other_id,
+      },
+    },
+    columnDefs: [
+      {
+        targets: "_all" /* column index */,
+
+        orderable: false /* true or false */,
+      },
+    ],
+  });
+}
+/*load table data end*/

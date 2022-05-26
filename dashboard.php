@@ -96,14 +96,7 @@
       </div>
     </section>
    
-  </div>
-
-  <div class="video">Video Player</div>
-  <div class="paywall">PAYWALL</div>
-
-  <hr>
-  <div class="form">Form</div>
-  
+  </div> 
 <?php
    include_once('include/footer.php');
 ?>
