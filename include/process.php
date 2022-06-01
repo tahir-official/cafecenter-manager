@@ -30,7 +30,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'login'){
 				$_SESSION['manager_id'] =$manager_id= $result->user_id;
 				$_SESSION['manager_type'] = $result->user_type;
 				$_SESSION['manager_email'] = $result->user_email;
-				$_SESSION['contact_number'] = $result->contact_number;
+				$_SESSION['contact_number'] = $result->user_contact_number;
 				$_SESSION['message'] ='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.' !!</div>';
 		    $output['status']=1;
 				$manager_portal_detail=$commonFunction->get_manager_portal_detail();
