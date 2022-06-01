@@ -237,10 +237,11 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="<?=$manager_data->profile?>" class="img-circle elevation-2" alt="<?=$manager_data->fname.' '.$manager_data->lname?>">
+          
+          <img id="header_profile_image" src="<?=$manager_data->profile?>" class="img-circle elevation-2" alt="<?=$manager_data->fname.' '.$manager_data->lname?>">
         </div>
         <div class="info">
-          <a href="<?=$site_url?>profile.php" class="d-block"><?=$manager_data->fname.' '.$manager_data->lname?></a>
+          <a href="<?=$site_url?>profile.php" class="d-block" id="manager_name"><?=$manager_data->fname.' '.$manager_data->lname?></a>
         </div>
       </div>
 

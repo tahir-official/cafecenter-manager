@@ -391,3 +391,187 @@ function abc(other_id) {
   });
 }
 /*load table data end*/
+
+/*reset password form start*/
+function resetPasswordFrom() {
+  $("#updatePassword")[0].reset();
+  return false;
+}
+/*reset password form end*/
+
+/*update password script start*/
+$(document).ready(function () {
+  $("#updatePassword").validate({
+    rules: {
+      current_password: {
+        required: true,
+      },
+      new_password: {
+        required: true,
+      },
+      confirm_password: {
+        required: true,
+        equalTo: "#new_password",
+      },
+    },
+    submitHandler: function (form) {
+      let formData = new FormData($("#updatePassword")[0]);
+      $.ajax({
+        method: "POST",
+        url: baseUrl + "include/process.php?action=changePassword",
+        data: formData,
+        dataType: "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+          $("#updatePassBtn").html(
+            '<i class="fa fa-spinner"></i> Processing...'
+          );
+          $("#updatePassBtn").prop("disabled", true);
+          $("#alert_change_pass").hide();
+        },
+      })
+
+        .fail(function (response) {
+          alert("Try again later.");
+        })
+
+        .done(function (response) {
+          $("#updatePassBtn").prop("disabled", false);
+          $("#updatePassBtn").html("Change");
+          $("#alert_change_pass").show();
+          $("#alert_change_pass").html(response.message);
+          if (response.status == 1) {
+            $("#updatePassword")[0].reset();
+          }
+        })
+        .always(function () {
+          $("#updatePassBtn").html("Change");
+          $("#updatePassBtn").prop("disabled", false);
+        });
+      return false;
+    },
+  });
+});
+
+/*update password script end*/
+
+/*edit user form start*/
+$(document).ready(function () {
+  $("#edit_form").validate({
+    rules: {
+      fname: {
+        required: true,
+      },
+      lname: {
+        required: true,
+      },
+
+      address: {
+        required: true,
+      },
+      state: {
+        required: true,
+      },
+      district: {
+        required: true,
+      },
+      city: {
+        required: true,
+      },
+      zipcode: {
+        required: true,
+        number: true,
+      },
+      gender: {
+        required: true,
+      },
+      dob: {
+        required: true,
+      },
+    },
+    submitHandler: function (form) {
+      let formData = new FormData($("#edit_form")[0]);
+      $.ajax({
+        method: "POST",
+        url: baseUrl + "include/process.php?action=edit_users",
+        data: formData,
+        dataType: "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+          $(".btnsbt").html('<i class="fa fa-spinner"></i> Processing...');
+          $(".btnsbt").prop("disabled", true);
+          $("#alert_edit_user").hide();
+        },
+      })
+
+        .fail(function (response) {
+          alert("Try again later.");
+        })
+
+        .done(function (response) {
+          $(".btnsbt").html("Submit");
+          $(".btnsbt").prop("disabled", false);
+          $("#alert_edit_user").show();
+          $("#alert_edit_user").html(response.message);
+          if (response.status == 1) {
+            $("#manager_name").html(response.manager_name);
+            $("#profile_name").html(response.manager_name);
+          }
+        })
+        .always(function () {
+          $(".btnsbt").html("Submit");
+          $(".btnsbt").prop("disabled", false);
+        });
+      return false;
+    },
+  });
+});
+
+/*edit user form end*/
+
+$(document).ready(function () {
+  $("#profile_image").on("change", function () {
+    let formData = new FormData($("#profile_form")[0]);
+    $.ajax({
+      method: "POST",
+      url: baseUrl + "include/process.php?action=edit_profile_image",
+      data: formData,
+      dataType: "JSON",
+      cache: false,
+      contentType: false,
+      processData: false,
+      beforeSend: function () {
+        $(".loader").css("display", "block");
+        $(".profile_form").prop("disabled", true);
+        $("#alert").hide();
+      },
+    })
+
+      .fail(function (response) {
+        alert("Try again later.");
+      })
+
+      .done(function (response) {
+        $(".loader").css("display", "none");
+        $(".profile_form").prop("disabled", false);
+        $("#alert").show();
+        $("#alert").html(response.message);
+        if (response.status == 1) {
+          $("#header_profile_image").attr("src", response.profile_url);
+          $(".outer").css(
+            "background-image",
+            "url(" + response.profile_url + ")"
+          );
+        }
+      })
+      .always(function () {
+        $(".loader").css("display", "none");
+        $(".profile_form").prop("disabled", false);
+      });
+    return false;
+  });
+});
