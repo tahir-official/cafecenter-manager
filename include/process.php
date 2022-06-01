@@ -127,6 +127,10 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'add_user')
 				'api_key' => API_KEY,
 				'otp' => $otp
 		  );
+			if($_POST['user_type']==3){
+				$data2=array("shopname"=>$_POST['shopname']);
+				$data=array_merge($data,$data2);
+		  }
 			$method='POST';
 			$response=$commonFunction->curl_call($url,$data,$method);
       $result = json_decode($response);
@@ -211,6 +215,10 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'edit_users')
 				'document'=> $document,
 				'api_key' => API_KEY
 			);
+			if($user_type==3){
+				$data2=array("shopname"=>$_POST['shopname']);
+				$data=array_merge($data,$data2);
+		  }
 			$method='POST';
 			$response=$commonFunction->curl_call($url,$data,$method);
       $result = json_decode($response);

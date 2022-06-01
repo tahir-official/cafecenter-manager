@@ -350,7 +350,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="all_retailers.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>All Retailers
                   <!-- <span class="right badge badge-danger">New</span> -->

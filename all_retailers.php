@@ -1,10 +1,11 @@
 
 <?php
    include_once('include/header.php');
-   if($manager_type!=1){
+   if($manager_type!=2){
     $commonFunction->redirect('dashboard.php');
    }
 ?>
+
 
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -18,12 +19,12 @@
         <div id="alert"></div>
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Distributors Management</h1>
+            <h1 class="m-0">Retailers Management</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="<?=$portal_detail->MANAGER_PORTAL_URL?>">Home</a></li>
-              <li class="breadcrumb-item active">Distributors Management</li>
+              <li class="breadcrumb-item active">Retailers Management</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,8 +38,8 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Distributors List</h3>
-                <button style="float: right;" type="button" class="btn btn-primary" onClick="load_users_popup(0,2)"><i class="fa fa-plus"></i></button>
+                <h3 class="card-title">Retailers List</h3>
+                <button style="float: right;" type="button" class="btn btn-primary" onClick="load_users_popup(0,3)"><i class="fa fa-plus"></i></button>
     
               </div>
               <!-- /.card-header -->
@@ -50,6 +51,7 @@
                         <th>Profile</th>
                         <th>First Name</th>
                         <th>Last Name</th>
+                        <th>Shop Name</th>
                         <th>Email</th>
                         <th>Password</th>
                         <th>Contact Number</th>
@@ -81,6 +83,6 @@
 ?>
 <script>
     $(document).ready(function(){
-        tableLoad("<?=SSOAPI?>get_user_table_list",2);
+        tableLoad("<?=SSOAPI?>get_user_table_list",3);
     });
 </script>
