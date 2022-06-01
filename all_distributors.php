@@ -81,6 +81,5 @@
 <script>
     $(document).ready(function(){
         tableLoad("<?=SSOAPI?>get_user_table_list",2);
-        //abc(2);
     });
 </script>
