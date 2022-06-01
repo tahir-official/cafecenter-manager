@@ -9,7 +9,13 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
+<div tabindex="-1" class="modal pmd-modal fade" id="form-dialog-other" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="popupcontent">
+            
+        </div>
+    </div>
+</div>
 
 <!-- jQuery UI 1.11.4 -->
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>

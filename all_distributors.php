@@ -15,6 +15,7 @@
         <?php
         if (isset($_SESSION['message'])){ echo $_SESSION['message'];  unset($_SESSION['message']);}
         ?>
+        <div id="alert"></div>
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">Distributors Management</h1>
@@ -37,7 +38,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">DataTable with default features</h3>
-                <button style="float: right;" type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                <button style="float: right;" type="button" class="btn btn-primary" onClick="load_users_popup(0,2)"><i class="fa fa-plus"></i></button>
     
               </div>
               <!-- /.card-header -->

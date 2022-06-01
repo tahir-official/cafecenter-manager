@@ -48,6 +48,7 @@
       <div id="alert" ></div>
       <form method="post" id="signupFrom">
         <input type="hidden" name="page" value="signup">
+        <input type="hidden" name="action" value="add_user">
         <div class="form-group">
           <select class="form-control" name="user_type" id="user_type">
               <option value="">Manager Type</option>

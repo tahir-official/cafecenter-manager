@@ -172,7 +172,7 @@ $(document).ready(function () {
       let formData = new FormData($("#signupFrom")[0]);
       $.ajax({
         method: "POST",
-        url: baseUrl + "include/process.php?action=add_user",
+        url: baseUrl + "include/process.php",
         data: formData,
         dataType: "JSON",
         cache: false,
@@ -551,3 +551,204 @@ $(document).ready(function () {
     return false;
   });
 });
+
+/*Load Users Popup start*/
+function load_users_popup(row_id, user_type) {
+  $.ajax({
+    method: "POST",
+    url: baseUrl + "include/process.php?action=load_users_popup",
+    data: { row_id: row_id, user_type: user_type },
+    dataType: "JSON",
+    beforeSend: function () {
+      $("#form-dialog-other").modal("show");
+      $("#popupcontent").html('<div id="loader"></div>');
+    },
+  })
+
+    .fail(function (response) {
+      alert("Try again later.");
+    })
+
+    .done(function (response) {
+      $.getScript(baseUrl + "dist/js/custom.js");
+
+      $("#popupcontent").html(response.html);
+    })
+    .always(function () {
+      $("#form-dialog-other").modal("show");
+    });
+
+  return false;
+}
+/*Load Users Popup end*/
+/*add edit district_manager_form form start*/
+$(document).ready(function () {
+  $("#users_form").validate({
+    rules: {
+      fname: {
+        required: true,
+      },
+      lname: {
+        required: true,
+      },
+      email: {
+        required: true,
+        email: true,
+      },
+      contact_number: {
+        required: true,
+        number: true,
+      },
+      address: {
+        required: true,
+      },
+      state: {
+        required: true,
+      },
+      district: {
+        required: true,
+      },
+      city: {
+        required: true,
+      },
+      zipcode: {
+        required: true,
+        number: true,
+      },
+      gender: {
+        required: true,
+      },
+      dob: {
+        required: true,
+      },
+    },
+    submitHandler: function (form) {
+      let formData = new FormData($("#users_form")[0]);
+      $.ajax({
+        method: "POST",
+        url: baseUrl + "include/process.php",
+        data: formData,
+        dataType: "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+          $(".btnsbt").html('<i class="fa fa-spinner"></i> Processing...');
+          $(".btnsbt").prop("disabled", true);
+          $("#alert").hide();
+          $("#popupalert").hide();
+        },
+      })
+
+        .fail(function (response) {
+          alert("Try again later.");
+        })
+
+        .done(function (response) {
+          $(".btnsbt").html("Submit");
+          $(".btnsbt").prop("disabled", false);
+          if (response.status == 0) {
+            $("#popupalert").show();
+            $("#popupalert").html(response.message);
+          } else {
+            $("#form-dialog-other").trigger("click");
+            $("#mytable").DataTable().destroy();
+            tableLoad(response.fetchTableurl, response.user_type);
+            $("#alert").show();
+            $("#alert").html(response.message);
+            $("#users_form")[0].reset();
+          }
+        })
+        .always(function () {
+          $(".btnsbt").html("Submit");
+          $(".btnsbt").prop("disabled", false);
+        });
+      return false;
+    },
+  });
+});
+
+/*add edit district_manager_form form end*/
+
+/*change user status start*/
+function changeUserStatus(user_id, status, user_type) {
+  if (status == 1) {
+    var alert = "active";
+  } else {
+    var alert = "deactive";
+  }
+  if (user_type == 1) {
+    alertmessage =
+      "Are you sure you want to " + alert + " this District Manager?";
+  } else if (user_type == 2) {
+    alertmessage = "Are you sure you want to " + alert + " this Distributor?";
+  } else if (user_type == 3) {
+    alertmessage = "Are you sure you want to " + alert + " this Retailer?";
+  } else if (user_type == 4) {
+    alertmessage = "Are you sure you want to " + alert + " this Consumer?";
+  }
+  if (confirm(alertmessage)) {
+    $.ajax({
+      method: "POST",
+      url: baseUrl + "include/process.php?action=change_user_status",
+      data: { user_id: user_id, status: status, user_type: user_type },
+      dataType: "JSON",
+      beforeSend: function () {
+        $(".stbtn").attr("disabled", true);
+        $("#alert").hide();
+      },
+    })
+
+      .fail(function (response) {
+        alert("Try again later.");
+      })
+
+      .done(function (response) {
+        if (response.status == 0) {
+          $(".stbtn").attr("disabled", false);
+        } else {
+          $("#mytable").DataTable().destroy();
+          tableLoad(response.fetchTableurl, response.user_type);
+        }
+        $("#alert").html(response.message);
+        $("#alert").show();
+      })
+
+      .always(function () {
+        $(".stbtn").attr("disabled", false);
+      });
+  } else {
+    return false;
+  }
+}
+/*change user status end*/
+
+/*load user detail model script start*/
+function detailPopupUser(user_id) {
+  $.ajax({
+    method: "POST",
+    url: baseUrl + "include/process.php?action=detail_popup_user",
+    data: { user_id: user_id },
+    dataType: "JSON",
+    beforeSend: function () {
+      $("#form-dialog-other").modal("show");
+      $("#popupcontent").html('<div id="loader"></div>');
+    },
+  })
+
+    .fail(function (response) {
+      alert("Try again later.");
+    })
+
+    .done(function (response) {
+      $.getScript(baseUrl + "dist/js/custom.js");
+
+      $("#popupcontent").html(response.html);
+    })
+    .always(function () {
+      $("#form-dialog-other").modal("show");
+    });
+
+  return false;
+}
+/*load user model script end*/

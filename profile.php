@@ -361,6 +361,12 @@
                           <input  type="date" class="form-control" id="dob" name="dob" placeholder="DOB" max="<?php echo date('Y-m-d');?>" value="<?=$manager_data->dob?>">
                         </div>
                       </div>
+                      <div class="form-group row">
+                        <label for="document" class="col-sm-2 col-form-label">ID Proof</label>
+                        <div class="col-sm-10">
+                        <input type="file" class="form-control" id="document" name="document" accept=".jpg, .jpeg, .pdf">
+                        </div>
+                      </div>
                       
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">

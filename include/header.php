@@ -86,7 +86,13 @@
    }
    ?>
   </script>
-  
+  <style>
+  #loader{
+  height: 400px;
+  background: url("<?=$portal_detail->LOADER_IMG?>") no-repeat center;
+               
+  }
+  </style>
   
 </head>
 
@@ -320,12 +326,12 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Distributor</p>
                 </a>
-              </li>
+              </li> -->
               
              
             </ul>
@@ -351,12 +357,12 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Retailer</p>
                 </a>
-              </li>
+              </li> -->
               
              
             </ul>
