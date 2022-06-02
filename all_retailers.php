@@ -53,7 +53,6 @@
                         <th>Last Name</th>
                         <th>Shop Name</th>
                         <th>Email</th>
-                        <th>Password</th>
                         <th>Contact Number</th>
                         <th>Wallet</th>
                         <th>Created Date</th>
