@@ -83,6 +83,6 @@
 ?>
 <script>
     $(document).ready(function(){
-        tableLoad("<?=SSOAPI?>get_user_table_list",3);
+        tableLoad("<?=SSOAPI?>get_user_table_list",3,'manager',<?php echo $_SESSION['manager_id']?>);
     });
 </script>

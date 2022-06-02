@@ -149,7 +149,9 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'add_user')
 				}else if($_POST['page']=='manager_page'){
 					$output['message'] ='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.' !!</div>';
 					$output['fetchTableurl']= SSOAPI.'get_user_table_list';  
-          $output['user_type']=   $_POST['user_type']; 
+          $output['user_type']=   $_POST['user_type'];
+					$output['portal']=   'manager'; 
+					$output['show_by']=   $_SESSION['manager_id'];
 				}
 
 				
@@ -230,6 +232,8 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'edit_users')
 					$alert_msg=$result->message;
 					$output['fetchTableurl']= SSOAPI.'get_user_table_list';  
           $output['user_type']=   $_POST['user_type'];
+					$output['portal']=   'manager'; 
+					$output['show_by']=   $_SESSION['manager_id'];
 				}
 				$output['message'] ='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$alert_msg.' !!</div>';
 				$output['status']=1;
@@ -823,6 +827,8 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'change_user_status
 				$output['status']=1;
 				$output['fetchTableurl']= SSOAPI.'get_user_table_list';  
         $output['user_type']=   $_POST['user_type']; 
+				$output['portal']=   'manager'; 
+				$output['show_by']=   $_SESSION['manager_id'];
 
 			}else{
 				//error message

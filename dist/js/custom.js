@@ -345,7 +345,7 @@ $(document).ready(function () {
 /*reset password form end*/
 
 /*load table data start*/
-function tableLoad(loadurl, other_id) {
+function tableLoad(loadurl, user_type, portal, show_by) {
   var dataTable = $("#mytable").DataTable({
     processing: true,
     serverSide: true,
@@ -354,7 +354,9 @@ function tableLoad(loadurl, other_id) {
       url: loadurl,
       type: "POST",
       data: {
-        other_id: other_id,
+        user_type: user_type,
+        portal: portal,
+        show_by: show_by,
       },
     },
     columnDefs: [
@@ -653,7 +655,12 @@ $(document).ready(function () {
           } else {
             $("#form-dialog-other").trigger("click");
             $("#mytable").DataTable().destroy();
-            tableLoad(response.fetchTableurl, response.user_type);
+            tableLoad(
+              response.fetchTableurl,
+              response.user_type,
+              response.portal,
+              response.show_by
+            );
             $("#alert").show();
             $("#alert").html(response.message);
             $("#users_form")[0].reset();
@@ -708,7 +715,12 @@ function changeUserStatus(user_id, status, user_type) {
           $(".stbtn").attr("disabled", false);
         } else {
           $("#mytable").DataTable().destroy();
-          tableLoad(response.fetchTableurl, response.user_type);
+          tableLoad(
+            response.fetchTableurl,
+            response.user_type,
+            response.portal,
+            response.show_by
+          );
         }
         $("#alert").html(response.message);
         $("#alert").show();
