@@ -844,6 +844,8 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'change_user_status
 echo json_encode($output);	
 }
 
+
+
 /*update password action start*/
 else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'detail_popup_user')
 { 
@@ -1117,6 +1119,50 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'detail_popup_user'
 		  $output['status']=0;
 		
 }
+echo json_encode($output);	
+}
+/*get paywal action start*/
+else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'load_paywall')
+{ 
+	 //method check statement
+	 if($_SERVER["REQUEST_METHOD"] == "POST"){
+      // $url=SSOAPI.'change_user_status';
+			// $data=array(
+			// 		'user_id' => $_POST['user_id'],
+			// 		'status' => $_POST['status'],
+			// 		'user_type' => $_POST['user_type'],
+			// 		'api_key' => API_KEY
+			// );
+			// $method='POST';
+			// $response=$commonFunction->curl_call($url,$data,$method);
+			// $result = json_decode($response);
+			// if($result->status != 0){
+				
+			// 	$output['message'] ='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.' !!</div>';
+			// 	$output['status']=1;
+			// 	$output['fetchTableurl']= SSOAPI.'get_user_table_list';  
+      //   $output['user_type']=   $_POST['user_type']; 
+			// 	$output['portal']=   'manager'; 
+			// 	$output['show_by']=   $_SESSION['manager_id'];
+
+			// }else{
+			// 	//error message
+			// 	$output['message'] ='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> '.$result->message.' !!</div>';
+			// 	$output['status']=0;
+			// }
+      $html='<div id="paywall-wrapper">
+			<h4>Frontend Hero Subscribtion</h4>
+			<p>Vehicula ornare, neque tortor iaculis urna, ut <strong>£12.99/mth</strong> consectetur.</p>
+			<a class="btn" href="#">Subscribe Today!</a>
+	 </div>';
+			$output['html'] =$html;
+			$output['status']=1;
+	 }else{
+		  //error message
+	  	$output['message'] ='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> Something Went Wrong !!</div>';
+		  $output['status']=0;
+		
+   }
 echo json_encode($output);	
 }
 ?>

@@ -764,3 +764,35 @@ function detailPopupUser(user_id) {
   return false;
 }
 /*load user model script end*/
+
+/*load paywall script start*/
+function load_paywall(user_id) {
+  $.ajax({
+    method: "POST",
+    url: baseUrl + "include/process.php?action=load_paywall",
+    data: { user_id: user_id },
+    dataType: "JSON",
+    beforeSend: function () {
+      $(".wrapper").html('<div id="loader"></div>');
+      $(".wrapper").css("text-align", "center");
+    },
+  })
+
+    .fail(function (response) {
+      alert("Try again later.");
+    })
+
+    .done(function (response) {
+      $.getScript(baseUrl + "dist/js/custom.js");
+      if (response.status == 0) {
+        $(".wrapper").html(response.message);
+        $(".wrapper").css("text-align", "center");
+      } else {
+        $(".wrapper").html(response.html);
+        $(".wrapper").css("text-align", "center");
+      }
+    });
+
+  return false;
+}
+/*load paywall script end*/
