@@ -32,14 +32,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'login'){
 				$_SESSION['manager_email'] = $result->user_email;
 				$_SESSION['contact_number'] = $result->user_contact_number;
 				$_SESSION['message'] ='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.' !!</div>';
-		    $output['status']=1;
+		        $output['status']=1;
 				$manager_portal_detail=$commonFunction->get_manager_portal_detail();
 				$portal_detail=$manager_portal_detail->data;
 				if(ENV=='prod'){
 					$site_url=$portal_detail->MANAGER_PORTAL_URL;
-			  }else{
+				}else{
 					$site_url='https://localhost/cafecenter-manager/';
-			  }
+				}
 				$output['url']=$site_url.'dashboard.php';
 				
 				if(!empty($_POST["remember"])) {
@@ -1116,7 +1116,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'detail_popup_user'
 	 }else{
 		  //error message
 	  	$output['message'] ='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> Something Went Wrong !!</div>';
-		  $output['status']=0;
+		$output['status']=0;
 		
 }
 echo json_encode($output);	
@@ -1150,11 +1150,73 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'load_paywall')
 			// 	$output['message'] ='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> '.$result->message.' !!</div>';
 			// 	$output['status']=0;
 			// }
-      $html='<div id="paywall-wrapper">
-			<h4>Frontend Hero Subscribtion</h4>
-			<p>Vehicula ornare, neque tortor iaculis urna, ut <strong>£12.99/mth</strong> consectetur.</p>
-			<a class="btn" href="#">Subscribe Today!</a>
-	 </div>';
+      $html='<style>
+	select.frecuency {
+		border: none;
+		font-style: italic;
+		background-color: transparent;
+		cursor: pointer;
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		-webkit-transition: -webkit-transform .35s ease-in;
+		transition: -webkit-transform .35s ease-in;
+		border-bottom: none;
+	}
+	select.frecuency:focus {
+		outline: none;
+		border-bottom: 5px solid #39b3d7;
+		-webkit-transform: translateY(-5px);
+		transform: translateY(-5px);
+		-webkit-transition: -webkit-transform .35s ease-in;
+		transition: -webkit-transform .35s ease-in;
+	}
+	.free {
+		text-transform: uppercase;
+	}
+	.input-group {
+		margin: 20px auto;
+		width: 100%;
+	}
+	input.btn.btn-lg,
+	input.btn.btn-lg:focus {
+		outline: none;
+		width: 60%;
+		height: 60px;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+	button.btn {
+		width: 40%;
+		height: 60px;
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+	.promise {
+		color: #999;
+	}</style>
+	  <div class="container" style="padding-top: 100px;">
+	     
+		  <div class="row">
+		      <div class="col-md-6 col-md-offset-3">
+			  <img src="https://localhost/cafecenter-manager/dist/img/Subscriptions.jpg" width="100%">
+		      </div>
+			  <div class="col-md-6 col-md-offset-3">
+			  <hgroup>
+				<h2>
+				  Subscribe for lifetime portal access
+				</h2>
+				<h1 class="free">Only in $12</h1>
+			   </hgroup>
+			   <div class="well">
+				   
+					   <button class="btn btn-info btn-lg" type="submit">Subscribe</button>
+					
+			   </div>
+			  
+			  </div>
+		  </div>
+	  </div>
+	  ';
 			$output['html'] =$html;
 			$output['status']=1;
 	 }else{

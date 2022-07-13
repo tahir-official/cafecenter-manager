@@ -91,21 +91,7 @@
   background: url("<?=$portal_detail->LOADER_IMG?>") no-repeat center;
                
   }
-  #paywall-wrapper {
-   padding: 35px;
-   border-radius: 5px;
-   position: relative;
-   margin-bottom: 30px;
-   box-shadow: 0px 0px 20px -1px rgba(0,0,0,0.20);
-  }
-  #paywall-wrapper * {
-      text-align: center;
-  }
-  #paywall-wrapper .btn {
-      left: 50%;
-      transform: translateX(-50%);
-      position: relative;
-  }
+  
   </style>
   
 </head>

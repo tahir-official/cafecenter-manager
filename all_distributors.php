@@ -72,12 +72,16 @@
         </div>
         
       </div>
+      
     </section>
+    
    
   </div>
 <?php
    include_once('include/footer.php');
 ?>
+
+  
 <script>
     $(document).ready(function(){
         tableLoad("<?=SSOAPI?>get_user_table_list",2,'manager',<?php echo $_SESSION['manager_id']?>);
