@@ -767,6 +767,7 @@ function detailPopupUser(user_id) {
 
 /*load paywall script start*/
 function load_paywall(user_id) {
+
   $.ajax({
     method: "POST",
     url: baseUrl + "include/process.php?action=load_paywall",
@@ -790,6 +791,10 @@ function load_paywall(user_id) {
       } else {
         $(".wrapper").html(response.html);
         $(".wrapper").css("text-align", "center");
+        var imageUrl = 
+"https://www.geeksforgeeks.org/wp-content/uploads/jquery-banner-768x256.png";
+                $(".wrapper").css("background-image", "url(" + imageUrl + ")");
+        
       }
     });
 

@@ -15,6 +15,7 @@ class Functions
     $response = curl_exec($client);
     curl_close($client);
     return $response;
+    
 
   }
 

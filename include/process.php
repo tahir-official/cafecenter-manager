@@ -1197,16 +1197,17 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'load_paywall')
 	  <div class="container" style="padding-top: 100px;">
 	     
 		  <div class="row">
-		      <div class="col-md-6 col-md-offset-3">
-			  <img src="https://localhost/cafecenter-manager/dist/img/Subscriptions.jpg" width="100%">
+		      <div class="col-md-3 col-md-offset-3">
+			  
 		      </div>
-			  <div class="col-md-6 col-md-offset-3">
+			  <div style="background: white;border: 2px solid black;border-radius: 10px;padding: 50px 30px 50px 30px;"  class="col-md-6 col-md-offset-3">
 			  <hgroup>
 				<h2>
 				  Subscribe for lifetime portal access
 				</h2>
 				<h1 class="free">Only in $12</h1>
 			   </hgroup>
+			   
 			   <div class="well">
 				   
 					   <button class="btn btn-info btn-lg" type="submit">Subscribe</button>
@@ -1214,6 +1215,9 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'load_paywall')
 			   </div>
 			  
 			  </div>
+			  <div class="col-md-3 col-md-offset-3">
+			  
+		      </div>
 		  </div>
 	  </div>
 	  ';

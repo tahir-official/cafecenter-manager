@@ -83,6 +83,7 @@
     });
     <?php
    }
+   
    ?>
   </script>
   <style>
