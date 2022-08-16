@@ -38,7 +38,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'login'){
 				if(ENV=='prod'){
 					$site_url=$portal_detail->MANAGER_PORTAL_URL;
 				}else{
-					$site_url='https://localhost/cafecenter-manager/';
+					$site_url='https://localhost/php/cafecenter-manager/';
 				}
 				$output['url']=$site_url.'dashboard.php';
 				
@@ -143,7 +143,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'add_user')
 					if(ENV=='prod'){
 						$site_url=$portal_detail->MANAGER_PORTAL_URL;
 					}else{
-						$site_url='https://localhost/cafecenter-manager/';
+						$site_url='https://localhost/php/cafecenter-manager/';
 					}
 					$output['url']=$site_url.'otpverification.php?number='.$_POST['contact_number'].'&page='.$_POST['page'];
 				}else if($_POST['page']=='manager_page'){
@@ -285,7 +285,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'otp_verify')
 					if(ENV=='prod'){
 						$site_url=$portal_detail->MANAGER_PORTAL_URL;
 					}else{
-						$site_url='https://localhost/cafecenter-manager/';
+						$site_url='https://localhost/php/cafecenter-manager/';
 					}
 					$output['url']=$site_url.'dashboard.php';
 
@@ -296,7 +296,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'otp_verify')
 					if(ENV=='prod'){
 						$site_url=$portal_detail->MANAGER_PORTAL_URL;
 					}else{
-						$site_url='https://localhost/cafecenter-manager/';
+						$site_url='https://localhost/php/cafecenter-manager/';
 					}
 					$output['url']=$site_url.'reset.php?token='.$result->token;
 			 }
@@ -341,7 +341,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'send_otp')
 					if(ENV=='prod'){
 						$site_url=$portal_detail->MANAGER_PORTAL_URL;
 					}else{
-						$site_url='https://localhost/cafecenter-manager/';
+						$site_url='https://localhost/php/cafecenter-manager/';
 					}
 					$output['url']=$site_url.'otpverification.php?number='.$_POST['cnumber'].'&page='.$_POST['page'];
 				  $output['status']=1;
@@ -384,7 +384,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'reset_password')
 			if(ENV=='prod'){
 				$site_url=$portal_detail->MANAGER_PORTAL_URL;
 			}else{
-				$site_url='https://localhost/cafecenter-manager/';
+				$site_url='https://localhost/php/cafecenter-manager/';
 			}
 			$output['url']=$site_url.'index.php';
 

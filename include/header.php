@@ -10,7 +10,7 @@
    if(ENV=='prod'){
     $site_url=$portal_detail->MANAGER_PORTAL_URL;
    }else{
-    $site_url='https://localhost/cafecenter-manager/';
+    $site_url='https://localhost/php/cafecenter-manager/';
    }
    if(!isset($_SESSION['is_manager_logged_in'])){ $commonFunction->redirect('index.php'); }
 ?>
