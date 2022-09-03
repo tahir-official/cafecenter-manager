@@ -786,14 +786,14 @@ function load_paywall(user_id) {
     .done(function (response) {
       $.getScript(baseUrl + "dist/js/custom.js");
       if (response.status == 0) {
-        $(".wrapper").html(response.message);
+        $(".wrapper").html(response.html);
         $(".wrapper").css("text-align", "center");
       } else {
         $(".wrapper").html(response.html);
         $(".wrapper").css("text-align", "center");
         var imageUrl = 
 "https://www.geeksforgeeks.org/wp-content/uploads/jquery-banner-768x256.png";
-                $(".wrapper").css("background-image", "url(" + imageUrl + ")");
+                $(".wrapper").css("background-image", "url(" + response.img + ")");
         
       }
     });

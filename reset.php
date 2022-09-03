@@ -6,7 +6,7 @@
    if(ENV=='prod'){
       $site_url=$portal_detail->MANAGER_PORTAL_URL;
    }else{
-      $site_url='https://localhost/php/cafecenter-manager/';
+      $site_url=LOCAL_URL;
    }
    if(isset($_SESSION['is_manager_logged_in'])){ $commonFunction->redirect('dashboard.php'); }
    if(isset($_REQUEST['token'])){
