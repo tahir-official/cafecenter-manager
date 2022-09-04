@@ -1,6 +1,9 @@
 <?php
 include_once('../include/functions.php');
 $commonFunction= new functions();
+require('../razorpay-php/Razorpay.php');
+use Razorpay\Api\Api;
+use Razorpay\Api\Errors\SignatureVerificationError;
 /*login action start*/
 if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'login'){  
 	//method check statement
@@ -1145,6 +1148,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'load_paywall')
 						$site_url=LOCAL_URL;
 					}
 					$logout=$site_url.'logout.php';
+					$payurl=$site_url.'pay.php';
 					$content ='<div style="background: white;border: 2px solid black;border-radius: 10px;padding: 50px 30px 50px 30px;"  class="col-md-6 col-md-offset-3">
 					<hgroup>
 						<h2>
@@ -1154,8 +1158,9 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'load_paywall')
 					</hgroup>
 					
 					<div class="well">
-						
-							<button class="btn btn-info btn-lg" type="submit">Subscribe</button>
+					        <button type="button" class="btn btn-info btn-lg first" >Subscribe</button><br>
+							
+							<br>
 							<a class="btn btn-danger btn-lg" href="'.$logout.'">Logout</a>
 							
 					</div>
@@ -1247,4 +1252,99 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'load_paywall')
    }
 echo json_encode($output);	
 }
+
+/*verify payment action start*/
+else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'verify_payment')
+{ 
+	
+
+	$success = true;
+
+	$error = "Payment Failed";
+
+	if (empty($_POST['razorpay_payment_id']) === false)
+	{
+		$api = new Api($keyId, $keySecret);
+
+		try
+		{
+			// Please note that the razorpay order ID must
+			// come from a trusted source (session here, but
+			// could be database or something else)
+			$attributes = array(
+				'razorpay_order_id' => $_SESSION['razorpay_order_id'],
+				'razorpay_payment_id' => $_POST['razorpay_payment_id'],
+				'razorpay_signature' => $_POST['razorpay_signature']
+			);
+
+			$api->utility->verifyPaymentSignature($attributes);
+		}
+		catch(SignatureVerificationError $e)
+		{
+			$success = false;
+			$error = 'Razorpay Error : ' . $e->getMessage();
+		}
+	}
+
+	if ($success === true)
+	{   
+		
+		$url=SSOAPI.'get_plan_by_user_type';
+		$data=array(
+			'user_type' => $_SESSION['manager_type'],
+			'api_key' => API_KEY
+		);
+		$method='POST';
+		$response=$commonFunction->curl_call($url,$data,$method);
+		$result = json_decode($response);
+		$plan_data=$result->data;
+
+		$manager_detail=$commonFunction->manager_detail($_SESSION['manager_id']);
+        $manager_data=$manager_detail->data;
+
+		$url=SSOAPI.'subscription_payment_process';
+		$data=array(
+			'api_key' => API_KEY,
+			'portal' => 'manager',
+			'razorpay_payment_id' => $_POST['razorpay_payment_id'],
+			'razorpay_order_id' => $_SESSION['razorpay_order_id'],
+			'razorpay_signature' => $_POST['razorpay_signature'],
+			'plan_amount' => $plan_data->plan_amount,
+			'currency' => 'INR',
+			'payment_date' => date('Y-m-d H:i:s'),
+			'manager_id' => $_SESSION['manager_id'],
+			'manager_type' => $_SESSION['manager_type'],
+			'manager_name' => $manager_data->fname.' '.$manager_data->lname,
+			'manager_email' => $manager_data->email,
+			'manager_contact_number' => $manager_data->contact_number,
+			'manager_address' => $manager_data->address,
+			'subscription_date' => date('Y-m-d H:i:s'),
+			'plan_id' => $plan_data->plan_id,
+			'plan_heading' => $plan_data->plan_heading,
+		);
+		$method='POST';
+		$response=$commonFunction->curl_call($url,$data,$method);
+		$result = json_decode($response);
+		
+		if($result->status != 0){
+			
+		    $_SESSION['message']='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.' !!</div>';
+		}else{
+		   
+		    $_SESSION['message']='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.' !!</div>';
+		}
+		
+		
+		
+	}
+	else
+	{
+		        
+		$_SESSION['message'] ='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> Your payment failed '.$error.' !!</div>';			
+	}
+	$commonFunction->redirect('../dashboard.php');
+
+	
+} 
+/*verify payment action end*/
 ?>
