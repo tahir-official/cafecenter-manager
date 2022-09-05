@@ -531,14 +531,14 @@ if($load_paywall==true){
             </ul>
           </li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="pages/gallery.html" class="nav-link">
               <i class="nav-icon fas fa-award"></i>
               <p>
                Subscription Plan
               </p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="pages/gallery.html" class="nav-link">
               <i class="nav-icon fas fa-exchange-alt"></i>

@@ -42,7 +42,7 @@
     
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body table-responsive">
                 <table id="mytable" class="table table-bordered table-striped">
                     <thead>
                     <tr>

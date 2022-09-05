@@ -96,6 +96,113 @@
                   .inputfile + label svg {
                       fill: #fff;
                   }
+
+                  /*css for subcraption*/
+                                  
+                .panel
+                {
+                    text-align: center;
+                }
+                .panel:hover { box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4), 0 1px 5px rgba(130, 130, 130, 0.35); }
+                .panel-body
+                {
+                    padding: 0px;
+                    text-align: center;
+                }
+
+                .the-price
+                {
+                    background-color: rgba(220,220,220,.17);
+                    box-shadow: 0 1px 0 #dcdcdc, inset 0 1px 0 #fff;
+                    padding: 20px;
+                    margin: 0;
+                }
+
+                .the-price h1
+                {
+                    line-height: 1em;
+                    padding: 0;
+                    margin: 0;
+                }
+
+                .subscript
+                {
+                    font-size: 25px;
+                }
+
+                /* CSS-only ribbon styles    */
+                .cnrflash
+                {
+                    /*Position correctly within container*/
+                    position: absolute;
+                    top: -9px;
+                    right: 4px;
+                    z-index: 1; /*Set overflow to hidden, to mask inner square*/
+                    overflow: hidden; /*Set size and add subtle rounding  		to soften edges*/
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 3px 5px 3px 0;
+                }
+                .cnrflash-inner
+                {
+                    /*Set position, make larger then 			container and rotate 45 degrees*/
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    width: 145px;
+                    height: 145px;
+                    -ms-transform: rotate(45deg); /* IE 9 */
+                    -o-transform: rotate(45deg); /* Opera */
+                    -moz-transform: rotate(45deg); /* Firefox */
+                    -webkit-transform: rotate(45deg); /* Safari and Chrome */
+                    -webkit-transform-origin: 100% 100%; /*Purely decorative effects to add texture and stuff*/ /* Safari and Chrome */
+                    -ms-transform-origin: 100% 100%;  /* IE 9 */
+                    -o-transform-origin: 100% 100%; /* Opera */
+                    -moz-transform-origin: 100% 100%; /* Firefox */
+                    background-image: linear-gradient(90deg, transparent 50%, rgba(255,255,255,.1) 50%), linear-gradient(0deg, transparent 0%, rgba(1,1,1,.2) 50%);
+                    background-size: 4px,auto, auto,auto;
+                    background-color: #aa0101;
+                    box-shadow: 0 3px 3px 0 rgba(1,1,1,.5), 0 1px 0 0 rgba(1,1,1,.5), inset 0 -1px 8px 0 rgba(255,255,255,.3), inset 0 -1px 0 0 rgba(255,255,255,.2);
+                }
+                .cnrflash-inner:before, .cnrflash-inner:after
+                {
+                    /*Use the border triangle trick to make  				it look like the ribbon wraps round it's 				container*/
+                    content: " ";
+                    display: block;
+                    position: absolute;
+                    bottom: -16px;
+                    width: 0;
+                    height: 0;
+                    border: 8px solid #800000;
+                }
+                .cnrflash-inner:before
+                {
+                    left: 1px;
+                    border-bottom-color: transparent;
+                    border-right-color: transparent;
+                }
+                .cnrflash-inner:after
+                {
+                    right: 0;
+                    border-bottom-color: transparent;
+                    border-left-color: transparent;
+                }
+                .cnrflash-label
+                {
+                    /*Make the label look nice*/
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    display: block;
+                    width: 100%;
+                    padding-bottom: 5px;
+                    color: #fff;
+                    text-shadow: 0 1px 1px rgba(1,1,1,.8);
+                    font-size: 0.95em;
+                    font-weight: bold;
+                    text-align: center;
+                }
+
               </style>
                 <div class="text-center">
                   <!-- <img class="profile-user-img img-fluid img-circle"
@@ -213,8 +320,8 @@
                 <ul class="nav nav-pills">
                   <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Profile Settings</a></li>
                   <li class="nav-item"><a class="nav-link" href="#password_setting" data-toggle="tab">Password Setting</a></li>
-                  <!-- <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">Activity</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li> -->
+                  <li class="nav-item"><a class="nav-link" href="#subscription_plan" data-toggle="tab">Subscription Plan</a></li>
+                  <!-- <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li> -->
                   
                 </ul>
               </div>
@@ -410,117 +517,46 @@
                    </div>
                   <!-- /.tab-pane -->
 
-                  <!-- <div class="tab-pane" id="activity">
-                    
-                    <div class="post">
-                      <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="dist/img/user1-128x128.jpg" alt="user image">
-                        <span class="username">
-                          <a href="#">Jonathan Burke Jr.</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">Shared publicly - 7:30 PM today</span>
-                      </div>
-                      
-                      <p>
-                        Lorem ipsum represents a long-held tradition for designers,
-                        typographers and the like. Some people hate it and argue for
-                        its demise, but others ignore the hate as they create awesome
-                        tools to help create filler text for everyone from bacon lovers
-                        to Charlie Sheen fans.
-                      </p>
-
-                      <p>
-                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                        <span class="float-right">
-                          <a href="#" class="link-black text-sm">
-                            <i class="far fa-comments mr-1"></i> Comments (5)
-                          </a>
-                        </span>
-                      </p>
-
-                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
-                    </div>
-                    
-
-                    
-                    <div class="post clearfix">
-                      <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="dist/img/user7-128x128.jpg" alt="User Image">
-                        <span class="username">
-                          <a href="#">Sarah Ross</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">Sent you a message - 3 days ago</span>
-                      </div>
-                      
-                      <p>
-                        Lorem ipsum represents a long-held tradition for designers,
-                        typographers and the like. Some people hate it and argue for
-                        its demise, but others ignore the hate as they create awesome
-                        tools to help create filler text for everyone from bacon lovers
-                        to Charlie Sheen fans.
-                      </p>
-
-                      <form class="form-horizontal">
-                        <div class="input-group input-group-sm mb-0">
-                          <input class="form-control form-control-sm" placeholder="Response">
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-danger">Send</button>
+                  <div class="tab-pane" id="subscription_plan">
+                    <div class="row">
+                          <div class="col-xs-12 col-md-12">
+                              <div class="panel panel-success">
+                                  <div class="cnrflash">
+                                      <div class="cnrflash-inner">
+                                          <span class="cnrflash-label">CURRENT
+                                              <br>
+                                              PLAN</span>
+                                      </div>
+                                  </div>
+                                  
+                                  <div class="panel-heading">
+                                      <h3 class="panel-title">
+                                          <?=$plan_data->plan_title?></h3>
+                                  </div>
+                                  <div class="panel-body">
+                                      <div class="the-price">
+                                          <h1><?php echo $portal_detail->CURRENCY.' '.$plan_data->plan_amount?></h1>
+                                          <small>For lifetime</small>
+                                      </div>
+                                      <table class="table">
+                                          <tr>
+                                              <td>
+                                              <?=$plan_data->plan_heading?>
+                                              </td>
+                                          </tr>
+                                          <tr class="active">
+                                              <td>
+                                              <?=$plan_data->plan_description?>
+                                              </td>
+                                          </tr>
+                                          
+                                      </table>
+                                  </div>
+                                  
+                              </div>
                           </div>
-                        </div>
-                      </form>
                     </div>
-                    
-                    <div class="post">
-                      <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="dist/img/user6-128x128.jpg" alt="User Image">
-                        <span class="username">
-                          <a href="#">Adam Jones</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">Posted 5 photos - 5 days ago</span>
-                      </div>
-                      
-                      <div class="row mb-3">
-                        <div class="col-sm-6">
-                          <img class="img-fluid" src="dist/img/photo1.png" alt="Photo">
-                        </div>
-                        
-                        <div class="col-sm-6">
-                          <div class="row">
-                            <div class="col-sm-6">
-                              <img class="img-fluid mb-3" src="dist/img/photo2.png" alt="Photo">
-                              <img class="img-fluid" src="dist/img/photo3.jpg" alt="Photo">
-                            </div>
-                            
-                            <div class="col-sm-6">
-                              <img class="img-fluid mb-3" src="dist/img/photo4.jpg" alt="Photo">
-                              <img class="img-fluid" src="dist/img/photo1.png" alt="Photo">
-                            </div>
-                            
-                          </div>
-                          
-                        </div>
-                       
-                      </div>
-                      
-
-                      <p>
-                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                        <span class="float-right">
-                          <a href="#" class="link-black text-sm">
-                            <i class="far fa-comments mr-1"></i> Comments (5)
-                          </a>
-                        </span>
-                      </p>
-
-                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
-                    </div>
-                    
-                  </div> -->
+                  </div> 
                   
                   <!-- <div class="tab-pane" id="timeline">
                     
