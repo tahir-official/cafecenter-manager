@@ -1,9 +1,6 @@
 
 <?php
    include_once('include/header.php');
-   if($manager_type!=1){
-    $commonFunction->redirect('dashboard.php');
-   }
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -45,17 +42,16 @@
                     <thead>
                     <tr>
                         <th>S.N.</th>
-                        <th>Profile</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Contact Number</th>
-                        <th>Wallet</th>
+                        <th>Payment ID</th>
+                        <!-- <th>Receiver Name</th>
+                        <th>receiver Type</th> -->
+                        <th>Subscribers Name</th>
+                        <th>Subscribers Type</th>
+                        <th>Commission Percentage</th>
+                        <th>Commission Amount</th>
+                        <th>Total Amount</th>
+                        <th>Note</th>
                         <th>Created Date</th>
-                        <th>Subscription Status</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                      
                     </tr>
                   </thead>
               
