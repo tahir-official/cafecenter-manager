@@ -544,7 +544,7 @@ if($load_paywall==true){
               <i class="nav-icon fas fa-exchange-alt"></i>
               
               <p>
-              Commission Transaction History
+              Commission History
               </p>
             </a>
           </li>
