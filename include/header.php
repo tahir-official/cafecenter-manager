@@ -540,11 +540,11 @@ if($load_paywall==true){
             </a>
           </li> -->
           <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
+            <a href="commission_transaction_history.php" class="nav-link">
               <i class="nav-icon fas fa-exchange-alt"></i>
               
               <p>
-              Transaction History
+              Commission Transaction History
               </p>
             </a>
           </li>

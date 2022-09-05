@@ -370,6 +370,30 @@ function tableLoad(loadurl, user_type, portal, show_by) {
 }
 /*load table data end*/
 
+/*load other table data start*/
+function tableLoad_other(loadurl, portal, manager_id) {
+  var dataTable = $("#mytable").DataTable({
+    processing: true,
+    serverSide: true,
+    order: [],
+    ajax: {
+      url: loadurl,
+      type: "POST",
+      data: {
+        portal: portal,
+        manager_id: manager_id,
+      },
+    },
+    columnDefs: [
+      {
+        targets: "_all" /* column index */,
+
+        orderable: false /* true or false */,
+      },
+    ],
+  });
+}
+/*load  othertable data end*/
 /*reset password form start*/
 function resetPasswordFrom() {
   $("#updatePassword")[0].reset();
