@@ -1302,6 +1302,51 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'verify_payment')
 		$manager_detail=$commonFunction->manager_detail($_SESSION['manager_id']);
         $manager_data=$manager_detail->data;
 
+		$district_manager_commission_percenttage=0;
+		$district_manager_commission_amount=0;
+		$district_manager_id='';
+		$distributor_commission_percentage=0;
+		$distributor_commission_amount=0;
+		$distributor_id='';
+		$admin_amount= $plan_data->plan_amount;
+
+		if($_SESSION['manager_type']==1){
+			
+			$district_manager_commission_percenttage=0;
+			$district_manager_commission_amount=0;
+			$district_manager_id='';
+			$distributor_commission_percentage=0;
+			$distributor_commission_amount=0;
+			$distributor_id='';
+			$admin_amount= $plan_data->plan_amount;
+
+		}else if($_SESSION['manager_type']==2){
+			$added_by=$manager_data->added_by;
+			if($added_by=='admin' || $added_by=='self'){
+				$district_manager_commission_percenttage=0;
+				$district_manager_commission_amount=0;
+				$district_manager_id='';
+				$distributor_commission_percentage=0;
+				$distributor_commission_amount=0;
+				$distributor_id='';
+				$admin_amount= $plan_data->plan_amount;
+
+			}else{
+				
+                //login for DM Commission for distributer
+				$district_manager_commission_percenttage=$plan_data->district_manager_commission;
+				$district_manager_commission_amount = ($district_manager_commission_percenttage / 100) * $plan_data->plan_amount;
+				$district_manager_id=$manager_data->added_id;
+                $admin_amount= $plan_data->plan_amount - $district_manager_commission_amount;
+
+				$distributor_commission_percentage=0;
+				$distributor_commission_amount=0;
+				$distributor_id='';
+				
+
+			}
+		}
+
 		$url=SSOAPI.'subscription_payment_process';
 		$data=array(
 			'api_key' => API_KEY,
@@ -1321,6 +1366,14 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'verify_payment')
 			'subscription_date' => date('Y-m-d H:i:s'),
 			'plan_id' => $plan_data->plan_id,
 			'plan_heading' => $plan_data->plan_heading,
+            'district_manager_commission_percenttage' => $district_manager_commission_percenttage,
+			'district_manager_commission_amount' => $district_manager_commission_amount,
+			'district_manager_id' => $district_manager_id,
+			'distributor_commission_percentage' => $distributor_commission_percentage,
+			'distributor_commission_amount' => $distributor_commission_amount,
+			'distributor_id' => $distributor_id,
+			'admin_amount' => $admin_amount,
+			'payment_mode' => 'online'
 		);
 		$method='POST';
 		$response=$commonFunction->curl_call($url,$data,$method);
