@@ -513,7 +513,7 @@ if($load_paywall==true){
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="wallet.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Wallet
                   <!-- <span class="right badge badge-danger">New</span> -->
