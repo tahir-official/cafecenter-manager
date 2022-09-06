@@ -959,3 +959,62 @@ $(document).ready(function () {
 
 /*UPI detail form end*/
 
+
+/*withdrawalRequst  form start*/
+$(document).ready(function () {
+  $("#withdrawalRequst_form").validate({
+    rules: {
+      request_amount: {
+        required: true
+      },
+      bank_upi: {
+        required: true
+      },
+      
+    },
+    submitHandler: function (form) {
+      let formData = new FormData($("#withdrawalRequst_form")[0]);
+      $.ajax({
+        method: "POST",
+        url: baseUrl + "include/process.php",
+        data: formData,
+        dataType: "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+          $("#withdrawalRequstBtn").html(
+            '<i class="fa fa-spinner"></i> Processing...'
+          );
+          $("#withdrawalRequstBtn").prop("disabled", true);
+          $("#alert_withdrawalRequst_detail").hide();
+        },
+      })
+
+        .fail(function (response) {
+          alert("Try again later.");
+        })
+
+        .done(function (response) {
+          $.getScript(baseUrl + "dist/js/custom.js");
+          $("#withdrawalRequstBtn").html("Submit");
+          $("#withdrawalRequstBtn").prop("disabled", false);
+          if (response.status == 0) {
+            $("#alert_withdrawalRequst_detail").show();
+            $("#alert_withdrawalRequst_detail").html(response.message);
+          } else {
+            $("#alert_withdrawalRequst_detail").show();
+            $("#alert_withdrawalRequst_detail").html(response.message);
+            
+          }
+        })
+        .always(function () {
+          $("#withdrawalRequstBtn").html("Submit");
+          $("#withdrawalRequstBtn").prop("disabled", false);
+        });
+      return false;
+    },
+  });
+});
+
+/*withdrawalRequst  form end*/

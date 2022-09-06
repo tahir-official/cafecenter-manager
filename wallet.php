@@ -64,31 +64,36 @@
                 </button>
               </div>
             </div>
-            <div class="card-body">
-            
-              <div class="form-group">
-                  <label for="request_amount">Please Enter Withdrawal Amount</label>
-                  <input type="number" id="request_amount" name="request_amount" class="form-control" value="" step="1">
-                  
-              </div>
-              <div class="form-group">
-                  <label for="inputEstimatedBudget">Select Method</label>
-                  <select class="form-control"  name="bank_upi" id="bank_upi" >
-                    <option value="bank">Bank</option>
-                    <option value="upi">UPI</option>
+            <form class="form-horizontal" name="withdrawalRequst_form" id="withdrawalRequst_form" method="post" >
+              <div class="card-body">
+              <div id="alert_withdrawalRequst_detail"></div>
+              <input type="hidden" name="action" value="withdrawalRequst" >
+              
+                <div class="form-group">
+                    <label for="request_amount">Please Enter Withdrawal Amount</label>
+                    <input type="number" id="request_amount" name="request_amount" class="form-control" value="" step="1">
                     
-                  </select>
-                  
-                  
+                </div>
+                <div class="form-group">
+                    <label for="bank_upi">Select Withdrawal Method</label>
+                    <select class="form-control"  name="bank_upi" id="bank_upi" >
+                      <option value="bank">Bank</option>
+                      <option value="upi">UPI</option>
+                      
+                    </select>
+                    
+                    
+                </div>
+                
+                <div class="form-group">
+                  <button type="submit" id="withdrawalRequstBtn"  class="btn btn-success float-right" style="margin-top: 30px;">Submit</button>
+                
+                </div>
+                
+                
+                
               </div>
-               
-              <div class="form-group">
-              <input type="submit" value="Submit" class="btn btn-success float-right" style="margin-top: 30px;">
-              </div>
-              
-              
-              
-            </div>
+            </form>
             <!-- /.card-body -->
           </div>
          
