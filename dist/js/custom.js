@@ -401,12 +401,7 @@ function resetPasswordFrom() {
 }
 /*reset password form end*/
 
-/*reset password form start*/
-function resetBankDetailFrom() {
-  $("#bank_detail_form")[0].reset();
-  return false;
-}
-/*reset password form end*/
+
 
 /*update password script start*/
 $(document).ready(function () {
@@ -842,7 +837,7 @@ $(".first").click(function(){
 
 
 
-/*band detail form start*/
+/*bank detail form start*/
 $(document).ready(function () {
   $("#bank_detail_form").validate({
     rules: {
@@ -880,6 +875,7 @@ $(document).ready(function () {
         })
 
         .done(function (response) {
+          $.getScript(baseUrl + "dist/js/custom.js");
           $("#addUpdateBankBtn").html("Submit");
           $("#addUpdateBankBtn").prop("disabled", false);
           if (response.status == 0) {
@@ -902,3 +898,64 @@ $(document).ready(function () {
 });
 
 /*bank detail form end*/
+
+
+
+
+/*UPI detail form start*/
+$(document).ready(function () {
+  $("#upi_detail_form").validate({
+    rules: {
+      upi_id: {
+        required: true
+      },
+      
+    },
+    submitHandler: function (form) {
+      let formData = new FormData($("#upi_detail_form")[0]);
+      $.ajax({
+        method: "POST",
+        url: baseUrl + "include/process.php",
+        data: formData,
+        dataType: "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+          $("#addUpdateUpiBtn").html(
+            '<i class="fa fa-spinner"></i> Processing...'
+          );
+          $("#addUpdateUpiBtn").prop("disabled", true);
+          $("#alert_upi_detail").hide();
+        },
+      })
+
+        .fail(function (response) {
+          alert("Try again later.");
+        })
+
+        .done(function (response) {
+          $.getScript(baseUrl + "dist/js/custom.js");
+          $("#addUpdateUpiBtn").html("Submit");
+          $("#addUpdateUpiBtn").prop("disabled", false);
+          if (response.status == 0) {
+            $("#alert_upi_detail").show();
+            $("#alert_upi_detail").html(response.message);
+          } else {
+            $("#alert_upi_detail").show();
+            $("#alert_upi_detail").html(response.message);
+            $("#upi_detail_form_h4").html('Update UPI Details');
+            $("#upi_action_type").val('update');
+          }
+        })
+        .always(function () {
+          $("#addUpdateUpiBtn").html("Submit");
+          $("#addUpdateUpiBtn").prop("disabled", false);
+        });
+      return false;
+    },
+  });
+});
+
+/*UPI detail form end*/
+

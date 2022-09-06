@@ -559,19 +559,18 @@
                     </div>
                   </div> 
 
-                  <?php
-                  if($manager_data->bank_status==0){
-                    $bank_detail_form_title='Add';
-                    $bank_detail_form_resetbtn='';
-                    $action_type='add';
-                    
-                  }else{
-                    $bank_detail_form_title='Update';
-                    $bank_detail_form_resetbtn='<button class="btn btn-warning" id="cancelBankDetailBtn" onclick="return resetBankDetailFrom();">Reset</button>';
-                    $action_type='update';
-                  }
-                  ?>
+                  
                   <div class="tab-pane" id="bank_detail">
+                    <?php
+                    if($manager_data->bank_status==0){
+                      $bank_detail_form_title='Add';
+                      $action_type='add';
+                      
+                    }else{
+                      $bank_detail_form_title='Update';
+                      $action_type='update';
+                    }
+                    ?>
                     <h4 id="bank_detail_form_h4"><?=$bank_detail_form_title?> Bank Details</h4>
                     <form class="form-horizontal" name="bank_detail_form" id="bank_detail_form" method="post" >
                     <input type="hidden" name="action" value="bank_detail_proccess" >
@@ -599,7 +598,7 @@
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
                           <button type="submit" class="btn btn-danger" id="addUpdateBankBtn">Submit</button>
-                          <?=$bank_detail_form_resetbtn?>
+                          
                         </div>
                       </div>
                     </form>
@@ -609,31 +608,34 @@
                   
                   <div class="tab-pane" id="upi_detail">
                    
-                    <form class="form-horizontal" name="updatePassword" id="updatePassword" method="post" >
-                    <div id="alert_change_pass"></div>
+                  <?php
+                    if($manager_data->upi_status==0){
+                      $upi_detail_form_title='Add';
+                      $upi_action_type='add';
+                      
+                    }else{
+                      $upi_detail_form_title='Update';
+                      $upi_action_type='update';
+                    }
+                    ?>
+                    <h4 id="upi_detail_form_h4"><?=$upi_detail_form_title?> UPI Details</h4>
+                    <form class="form-horizontal" name="upi_detail_form" id="upi_detail_form" method="post" >
+                    <input type="hidden" name="action" value="upi_detail_proccess" >
+                    <input type="hidden" id="upi_action_type" name="upi_action_type" value="<?=$upi_action_type?>" >
+                    <div id="alert_upi_detail"></div>
                       <div class="form-group row">
-                        <label for="current_password" class="col-sm-2 col-form-label">Current Password</label>
+                        <label for="upi_id" class="col-sm-2 col-form-label">UPI ID</label>
                         <div class="col-sm-10">
-                          <input type="password" class="form-control" id="current_password" name="current_password" placeholder="Current Password">
+                          <input type="text" class="form-control" id="upi_id" name="upi_id" placeholder="UPI ID" value="<?=$manager_data->upi_id?>">
                         </div>
                       </div>
-                      <div class="form-group row">
-                        <label for="new_password" class="col-sm-2 col-form-label">New Password</label>
-                        <div class="col-sm-10">
-                        <input type="password" class="form-control" id="new_password" name="new_password" placeholder="New Password">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="confirm_password" class="col-sm-2 col-form-label">Confirm Password</label>
-                        <div class="col-sm-10">
-                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
-                        </div>
-                      </div>
+                      
+                      
                      
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
-                          <button type="submit" class="btn btn-danger" id="updatePassBtn">Change</button>
-                          <button class="btn btn-warning" id="cancelPassBtn" onclick="return resetPasswordFrom();">Cancel</button>
+                          <button type="submit" class="btn btn-danger" id="addUpdateUpiBtn">Submit</button>
+                          
                         </div>
                       </div>
                     </form>
