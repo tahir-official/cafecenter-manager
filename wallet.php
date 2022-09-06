@@ -43,6 +43,10 @@
                 <label for="inputName">Total Wallet Amount</label>
                 <input type="text" id="total_wallet_amount" class="form-control" disabled value="<?=$portal_detail->CURRENCY.''.$manager_data->wallet?>">
               </div>
+              <div class="form-group">
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              </div>
               
             </div>
             <!-- /.card-body -->
@@ -61,18 +65,26 @@
               </div>
             </div>
             <div class="card-body">
-            <div class="row">
-                <div class="col-md-9">
-                        <div class="form-group">
-                            <label for="inputEstimatedBudget">Please Enter Withdrawal Amount</label>
-                            <input type="number" id="request_amount" name="request_amount" class="form-control" value="" step="1">
-                            
-                        </div>
-                </div>
-                <div class="col-md-3">
-                        <input type="submit" value="Submit" class="btn btn-success float-right" style="margin-top: 30px;">
-                </div>
-            </div>
+            
+              <div class="form-group">
+                  <label for="request_amount">Please Enter Withdrawal Amount</label>
+                  <input type="number" id="request_amount" name="request_amount" class="form-control" value="" step="1">
+                  
+              </div>
+              <div class="form-group">
+                  <label for="inputEstimatedBudget">Select Method</label>
+                  <select class="form-control"  name="bank_upi" id="bank_upi" >
+                    <option value="bank">Bank</option>
+                    <option value="upi">UPI</option>
+                    
+                  </select>
+                  
+                  
+              </div>
+               
+              <div class="form-group">
+              <input type="submit" value="Submit" class="btn btn-success float-right" style="margin-top: 30px;">
+              </div>
               
               
               

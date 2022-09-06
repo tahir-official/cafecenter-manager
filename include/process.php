@@ -1400,4 +1400,42 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'verify_payment')
 	
 } 
 /*verify payment action end*/
+
+/*bank detail action start*/
+else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'bank_detail_proccess')
+{ 
+	//method check statement
+	if ($_SERVER["REQUEST_METHOD"] == "POST"){
+		$url=SSOAPI.'bank_detail_proccess';
+		$data=array(
+			
+			'action_type' => $_POST['action_type'],
+			'holder_name' => $_POST['holder_name'],
+			'ifsc_code' => $_POST['ifsc_code'],
+			'account_number' => $_POST['account_number'],
+			'manager_id' => $_SESSION['manager_id'],
+			'api_key' => API_KEY
+			
+		);
+		$method='POST';
+		$response=$commonFunction->curl_call($url,$data,$method);
+		$result = json_decode($response);
+		if($result->status != 0){
+			$output['status']=1;
+			$output['message']='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.' !!</div>'; 
+		}else{
+				//error message
+		    $output['message'] ='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> '.$result->message.' !!</div>';
+		    $output['status']=0;
+		}
+
+	}else{
+		//error message
+		$output['message'] ='<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> Something Went Wrong !!</div>';
+		$output['status']=0;
+		
+}
+  echo json_encode($output);
+}
+/*bank detail action end*/
 ?>

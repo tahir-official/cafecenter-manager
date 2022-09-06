@@ -321,7 +321,8 @@
                   <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Profile Settings</a></li>
                   <li class="nav-item"><a class="nav-link" href="#password_setting" data-toggle="tab">Password Setting</a></li>
                   <li class="nav-item"><a class="nav-link" href="#subscription_plan" data-toggle="tab">Subscription Plan</a></li>
-                  <!-- <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li> -->
+                  <li class="nav-item"><a class="nav-link" href="#bank_detail" data-toggle="tab">Bank Details</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#upi_detail" data-toggle="tab">UPI Detail</a></li>
                   
                 </ul>
               </div>
@@ -557,96 +558,89 @@
                           </div>
                     </div>
                   </div> 
-                  
-                  <!-- <div class="tab-pane" id="timeline">
+
+                  <?php
+                  if($manager_data->bank_status==0){
+                    $bank_detail_form_title='Add';
+                    $bank_detail_form_resetbtn='';
+                    $action_type='add';
                     
-                    <div class="timeline timeline-inverse">
+                  }else{
+                    $bank_detail_form_title='Update';
+                    $bank_detail_form_resetbtn='<button class="btn btn-warning" id="cancelBankDetailBtn" onclick="return resetBankDetailFrom();">Reset</button>';
+                    $action_type='update';
+                  }
+                  ?>
+                  <div class="tab-pane" id="bank_detail">
+                    <h4 id="bank_detail_form_h4"><?=$bank_detail_form_title?> Bank Details</h4>
+                    <form class="form-horizontal" name="bank_detail_form" id="bank_detail_form" method="post" >
+                    <input type="hidden" name="action" value="bank_detail_proccess" >
+                    <input type="hidden" id="action_type" name="action_type" value="<?=$action_type?>" >
+                    <div id="alert_bank_detail"></div>
+                      <div class="form-group row">
+                        <label for="holder_name" class="col-sm-2 col-form-label">Holder Name</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="holder_name" name="holder_name" placeholder="Holder Name" value="<?=$manager_data->holder_name?>">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="ifsc_code" class="col-sm-2 col-form-label">IFSC Code</label>
+                        <div class="col-sm-10">
+                        <input type="text" class="form-control" id="ifsc_code" name="ifsc_code" placeholder="IFSC Code" value="<?=$manager_data->ifsc_code?>">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="account_number" class="col-sm-2 col-form-label">Account Number</label>
+                        <div class="col-sm-10">
+                        <input type="text" class="form-control" id="account_number" name="account_number" placeholder="Account Number" value="<?=$manager_data->account_number?>">
+                        </div>
+                      </div>
                      
-                      <div class="time-label">
-                        <span class="bg-danger">
-                          10 Feb. 2014
-                        </span>
-                      </div>
-                      
-                      <div>
-                        <i class="fas fa-envelope bg-primary"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 12:05</span>
-
-                          <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                          <div class="timeline-body">
-                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                            quora plaxo ideeli hulu weebly balihoo...
-                          </div>
-                          <div class="timeline-footer">
-                            <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                            <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                          </div>
+                      <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <button type="submit" class="btn btn-danger" id="addUpdateBankBtn">Submit</button>
+                          <?=$bank_detail_form_resetbtn?>
                         </div>
                       </div>
-                      
-                      <div>
-                        <i class="fas fa-user bg-info"></i>
+                    </form>
+                   </div>
+                  <!-- /.tab-pane -->
 
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-
-                          <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-                          </h3>
+                  
+                  <div class="tab-pane" id="upi_detail">
+                   
+                    <form class="form-horizontal" name="updatePassword" id="updatePassword" method="post" >
+                    <div id="alert_change_pass"></div>
+                      <div class="form-group row">
+                        <label for="current_password" class="col-sm-2 col-form-label">Current Password</label>
+                        <div class="col-sm-10">
+                          <input type="password" class="form-control" id="current_password" name="current_password" placeholder="Current Password">
                         </div>
                       </div>
-                      
-                      <div>
-                        <i class="fas fa-comments bg-warning"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-
-                          <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                          <div class="timeline-body">
-                            Take me to your leader!
-                            Switzerland is small and neutral!
-                            We are more like Germany, ambitious and misunderstood!
-                          </div>
-                          <div class="timeline-footer">
-                            <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
-                          </div>
+                      <div class="form-group row">
+                        <label for="new_password" class="col-sm-2 col-form-label">New Password</label>
+                        <div class="col-sm-10">
+                        <input type="password" class="form-control" id="new_password" name="new_password" placeholder="New Password">
                         </div>
                       </div>
-                      
-                      <div class="time-label">
-                        <span class="bg-success">
-                          3 Jan. 2014
-                        </span>
-                      </div>
-                      
-                      <div>
-                        <i class="fas fa-camera bg-purple"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
-
-                          <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                          <div class="timeline-body">
-                            <img src="https://placehold.it/150x100" alt="...">
-                            <img src="https://placehold.it/150x100" alt="...">
-                            <img src="https://placehold.it/150x100" alt="...">
-                            <img src="https://placehold.it/150x100" alt="...">
-                          </div>
+                      <div class="form-group row">
+                        <label for="confirm_password" class="col-sm-2 col-form-label">Confirm Password</label>
+                        <div class="col-sm-10">
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
                         </div>
                       </div>
-                      
-                      <div>
-                        <i class="far fa-clock bg-gray"></i>
+                     
+                      <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <button type="submit" class="btn btn-danger" id="updatePassBtn">Change</button>
+                          <button class="btn btn-warning" id="cancelPassBtn" onclick="return resetPasswordFrom();">Cancel</button>
+                        </div>
                       </div>
-                    </div>
-                  </div> -->
+                    </form>
+                   </div>
+                  <!-- /.tab-pane -->
+                  
+                  
                   
 
                   

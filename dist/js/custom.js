@@ -401,6 +401,13 @@ function resetPasswordFrom() {
 }
 /*reset password form end*/
 
+/*reset password form start*/
+function resetBankDetailFrom() {
+  $("#bank_detail_form")[0].reset();
+  return false;
+}
+/*reset password form end*/
+
 /*update password script start*/
 $(document).ready(function () {
   $("#updatePassword").validate({
@@ -832,3 +839,66 @@ $(".first").click(function(){
   return false;
 });
 /*load paywall script end*/
+
+
+
+/*band detail form start*/
+$(document).ready(function () {
+  $("#bank_detail_form").validate({
+    rules: {
+      holder_name: {
+        required: true
+      },
+      ifsc_code: {
+        required: true
+      },
+      account_number: {
+        required: true
+      },
+    },
+    submitHandler: function (form) {
+      let formData = new FormData($("#bank_detail_form")[0]);
+      $.ajax({
+        method: "POST",
+        url: baseUrl + "include/process.php",
+        data: formData,
+        dataType: "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+          $("#addUpdateBankBtn").html(
+            '<i class="fa fa-spinner"></i> Processing...'
+          );
+          $("#addUpdateBankBtn").prop("disabled", true);
+          $("#alert_bank_detail").hide();
+        },
+      })
+
+        .fail(function (response) {
+          alert("Try again later.");
+        })
+
+        .done(function (response) {
+          $("#addUpdateBankBtn").html("Submit");
+          $("#addUpdateBankBtn").prop("disabled", false);
+          if (response.status == 0) {
+            $("#alert_bank_detail").show();
+            $("#alert_bank_detail").html(response.message);
+          } else {
+            $("#alert_bank_detail").show();
+            $("#alert_bank_detail").html(response.message);
+            $("#bank_detail_form_h4").html('Update Bank Details');
+            $("#action_type").val('update');
+          }
+        })
+        .always(function () {
+          $("#addUpdateBankBtn").html("Submit");
+          $("#addUpdateBankBtn").prop("disabled", false);
+        });
+      return false;
+    },
+  });
+});
+
+/*bank detail form end*/
