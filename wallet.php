@@ -104,7 +104,7 @@
              <!-- /.card -->
           <div class="card card-info" id="all_transfer">
             <div class="card-header">
-              <h3 class="card-title">All Transfer</h3>
+              <h3 class="card-title">Wallet Transfer History</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
