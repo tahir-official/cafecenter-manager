@@ -77,8 +77,8 @@
                 <div class="form-group">
                     <label for="bank_upi">Select Withdrawal Method</label>
                     <select class="form-control"  name="bank_upi" id="bank_upi" >
-                      <option value="bank">Bank</option>
-                      <option value="upi">UPI</option>
+                      <option value="0">Bank</option>
+                      <option value="1">UPI</option>
                       
                     </select>
                     

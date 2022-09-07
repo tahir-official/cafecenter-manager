@@ -1493,8 +1493,12 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'withdrawalRequst')
 		$method='POST';
 		$response=$commonFunction->curl_call($url,$data,$method);
 		$result = json_decode($response);
+	
+
+        
 		if($result->status != 0){
 			$output['status']=1;
+			$output['wallet']=$result->wallet;
 			$output['message']='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.' !!</div>'; 
 		}else{
 				//error message

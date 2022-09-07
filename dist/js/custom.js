@@ -1005,6 +1005,8 @@ $(document).ready(function () {
           } else {
             $("#alert_withdrawalRequst_detail").show();
             $("#alert_withdrawalRequst_detail").html(response.message);
+            $("#total_wallet_amount").val(response.wallet);
+            $("#withdrawalRequst_form")[0].reset();
             
           }
         })
