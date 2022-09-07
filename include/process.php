@@ -1499,6 +1499,9 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'withdrawalRequst')
 		if($result->status != 0){
 			$output['status']=1;
 			$output['wallet']=$result->wallet;
+			$output['refer_url']=SSOAPI.'get_wallet_transaction_table_list';
+			$output['portal']='manager';
+			$output['manager_id']=$_SESSION['manager_id'];
 			$output['message']='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.' !!</div>'; 
 		}else{
 				//error message

@@ -1007,6 +1007,8 @@ $(document).ready(function () {
             $("#alert_withdrawalRequst_detail").html(response.message);
             $("#total_wallet_amount").val(response.wallet);
             $("#withdrawalRequst_form")[0].reset();
+            $("#mytable").DataTable().destroy();
+            tableLoad_other(response.refer_url,response.portal,response.manager_id);
             
           }
         })
