@@ -72,7 +72,17 @@ class Functions
 		die(); 
 	}
 
+  function get_page_detail_by_id($page_id){
+    $url=SSOAPI.'get_page_detail_by_id';
+    $data=array(
+        'page_id' => $page_id,
+        'api_key' => API_KEY
+    );
+    $method='POST';
+    $response=$this->curl_call($url,$data,$method);
+    return $result = json_decode($response);
 
+}
 
 
 }
