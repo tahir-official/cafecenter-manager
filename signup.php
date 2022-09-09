@@ -148,7 +148,7 @@
             </div>
 
           <div class="form-group col-md-2">
-            <input type="file" class="form-control" id="document" name="document" accept=".jpg, .jpeg, .pdf" placeholder="ID Proof" title="ID Proof">
+            <input type="file" class="form-control" id="document" name="document" accept=".jpg, .jpeg, .pdf" placeholder="ID Proof" title="ID Proof (50 to 200 kb)">
           </div>
         </div>
         <div class="row">
