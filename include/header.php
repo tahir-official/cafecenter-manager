@@ -106,7 +106,7 @@ require('razorpay-php/Razorpay.php');
 // Create the Razorpay Order
 use Razorpay\Api\Api;
 
-$api = new Api($keyId, $keySecret);
+$api = new Api($portal_detail->keyId, $portal_detail->keySecret);
 
 $url=SSOAPI.'get_plan_by_user_type';
 $data=array(
@@ -139,12 +139,12 @@ $_SESSION['razorpay_order_id'] = $razorpayOrderId;
 
 $displayAmount = $amount = $orderData['amount'];
 
-if ($displayCurrency !== 'INR')
+if ($portal_detail->displayCurrency !== 'INR')
 {
-    $url = "https://api.fixer.io/latest?symbols=$displayCurrency&base=INR";
+    $url = "https://api.fixer.io/latest?symbols=$portal_detail->displayCurrency&base=INR";
     $exchange = json_decode(file_get_contents($url), true);
 
-    $displayAmount = $exchange['rates'][$displayCurrency] * $amount / 100;
+    $displayAmount = $exchange['rates'][$portal_detail->displayCurrency] * $amount / 100;
 }
 $merchant_order_id= $razorpayOrderId.'_'.rand(100000,999999);
 $data = [
@@ -168,9 +168,9 @@ $data = [
     "order_id"          => $razorpayOrderId,
 ];
 
-if ($displayCurrency !== 'INR')
+if ($portal_detail->displayCurrency !== 'INR')
 {
-    $data['display_currency']  = $displayCurrency;
+    $data['display_currency']  = $portal_detail->displayCurrency;
     $data['display_amount']    = $displayAmount;
 }
 

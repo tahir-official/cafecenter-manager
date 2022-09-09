@@ -1257,6 +1257,8 @@ echo json_encode($output);
 else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'verify_payment')
 { 
 	
+	$get_manager_portal_detail=$commonFunction->get_manager_portal_detail();
+	$portal_detail=$get_manager_portal_detail->data;
 
 	$success = true;
 
@@ -1264,7 +1266,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'verify_payment')
 
 	if (empty($_POST['razorpay_payment_id']) === false)
 	{
-		$api = new Api($keyId, $keySecret);
+		$api = new Api($portal_detail->keyId, $portal_detail->keySecret);
 
 		try
 		{
