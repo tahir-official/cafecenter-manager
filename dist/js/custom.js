@@ -137,6 +137,7 @@ $(document).ready(function () {
         required: true,
         number: true,
         maxlength: 10,
+        minlength: 10,
       },
       address: {
         required: true,

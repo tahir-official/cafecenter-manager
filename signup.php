@@ -77,7 +77,7 @@
           </div>
           <div class="col-sm-6">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Mobile No." name="contact_number" id="contact_number">
+              <input type="text" class="form-control" placeholder="Mobile No." name="contact_number" maxlength="10" id="contact_number">
             </div>
           </div>
         </div>
