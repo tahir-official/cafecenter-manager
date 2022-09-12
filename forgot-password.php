@@ -52,7 +52,7 @@
       <form method="post" id="forgetpassFrom">
       <input type="hidden" name="page" value="forget" id="page">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Mobile Number" name="number" id="number">
+          <input type="text" class="form-control" placeholder="Mobile Number" name="number" id="number" maxlength="10">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-mobile"></span>
