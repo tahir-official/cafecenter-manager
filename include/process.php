@@ -174,6 +174,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'add_user')
 	echo json_encode($output);	
 }
 /*signup action end*/
+
 /*edit manager action start*/
 else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'edit_users')
 { 
@@ -1158,7 +1159,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'load_paywall')
 					</hgroup>
 					
 					<div class="well">
-					        <button type="button" class="btn btn-info btn-lg first"  title="'.$plan_data->plan_description.'">Subscribe</button><br>
+					        <button type="button" class="btn btn-info btn-lg first" >Subscribe</button><br>
 							
 							<br>
 							<a class="btn btn-danger btn-lg" href="'.$logout.'">Logout</a>
