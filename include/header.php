@@ -148,7 +148,7 @@ if ($portal_detail->displayCurrency !== 'INR')
 }
 $merchant_order_id= $razorpayOrderId.'_'.rand(100000,999999);
 $data = [
-    "key"               => $keyId,
+    "key"               => $portal_detail->keyId,
     "amount"            => $amount,
     "name"              => $portal_detail->MANAGER_PROJECT,
     "description"       => $plan_data->plan_heading,
@@ -163,7 +163,7 @@ $data = [
     "merchant_order_id" => $merchant_order_id,
     ],
     "theme"             => [
-    "color"             => "#F37254"
+    "color"             => "#343a40"
     ],
     "order_id"          => $razorpayOrderId,
 ];

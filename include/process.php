@@ -595,7 +595,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'load_users_popup')
 												</button>
 											</div>';
 			}else{
-				  $action='edit_users';
+				   $action='edit_users';
 					$result_alert='';
 					$response_result=$result->data;
 					$fname=$response_result->fname;
