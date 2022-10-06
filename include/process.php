@@ -282,6 +282,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'otp_verify')
 					$_SESSION['manager_id'] =$manager_id= $result->user_id;
 					$_SESSION['manager_type'] = $result->user_type;
 					$_SESSION['manager_email'] = $result->user_email;
+					$_SESSION['contact_number'] = $result->user_contact_number;
 					$_SESSION['message'] ='<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$result->message.' !!</div>';
 					$output['status']=1;
 					$manager_portal_detail=$commonFunction->get_manager_portal_detail();
@@ -537,6 +538,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'load_users_popup')
 			$user_title='Retailer';
 			
 	}
+	$result_alert='';
 
 	if($_POST['row_id']==0){
 			$popup_title='Add '.$user_title;
@@ -563,7 +565,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'load_users_popup')
 				}
 			}
 			
-      $district_disbale='';
+            $district_disbale='';
 			$district_option='<option value="">Select District</option>';
 
 			$city='';
@@ -596,7 +598,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'load_users_popup')
 											</div>';
 			}else{
 				   $action='edit_users';
-					$result_alert='';
+					
 					$response_result=$result->data;
 					$fname=$response_result->fname;
 					$lname=$response_result->lname;
