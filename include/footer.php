@@ -1,4 +1,4 @@
-<footer class="main-footer">
+<footer class="main-footer" style="text-align: center;">
  <?=$portal_detail->FOOTER_TEXT?>
 </footer>
 

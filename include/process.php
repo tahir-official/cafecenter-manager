@@ -766,7 +766,7 @@ else if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'load_users_popup')
 											</div>
 											<div class="form-group col-md-6">
 													<label for="zipcode">Zipcode</label>
-													<input id="zipcode" name="zipcode" class="form-control" type="text" value="'.$zipcode.'">
+													<input id="zipcode" name="zipcode" maxlength="6" class="form-control" type="text" value="'.$zipcode.'">
 											</div>
 
 									</div>
