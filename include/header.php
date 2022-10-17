@@ -3,6 +3,7 @@
    $commonFunction= new functions();
    $get_manager_portal_detail=$commonFunction->get_manager_portal_detail();
    $portal_detail=$get_manager_portal_detail->data;
+   if(!isset($_SESSION['is_manager_logged_in'])){ $commonFunction->redirect('index.php'); }
    
    $manager_detail=$commonFunction->manager_detail($_SESSION['manager_id']);
    $manager_data=$manager_detail->data;
@@ -12,7 +13,7 @@
    }else{
     $site_url=LOCAL_URL;
    }
-   if(!isset($_SESSION['is_manager_logged_in'])){ $commonFunction->redirect('index.php'); }
+   
 ?>
 <!DOCTYPE html>
 <html lang="en">
